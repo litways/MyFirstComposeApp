@@ -35,24 +35,27 @@ fun HomeScaffold(
 
     val backStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = backStackEntry?.destination?.route ?: Routes.OVERVIEW
+    val showBottomBar = currentRoute != Routes.LOGIN
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                items.forEach { item ->
-                    val selected = currentRoute == item.route
-                    NavigationBarItem(
-                        selected = selected,
-                        onClick = {
-                            if (!selected) navController.navigate(item.route) {
-                                launchSingleTop = true
-                                restoreState = true
-                                popUpTo(Routes.OVERVIEW) { saveState = true }
-                            }
-                        },
-                        icon = { Icon(item.icon, contentDescription = item.label) },
-                        label = { androidx.compose.material3.Text(item.label) }
-                    )
+            if (showBottomBar) {
+                NavigationBar {
+                    items.forEach { item ->
+                        val selected = currentRoute == item.route
+                        NavigationBarItem(
+                            selected = selected,
+                            onClick = {
+                                if (!selected) navController.navigate(item.route) {
+                                    launchSingleTop = true
+                                    restoreState = true
+                                    popUpTo(Routes.OVERVIEW) { saveState = true }
+                                }
+                            },
+                            icon = { Icon(item.icon, contentDescription = item.label) },
+                            label = { androidx.compose.material3.Text(item.label) }
+                        )
+                    }
                 }
             }
         },
