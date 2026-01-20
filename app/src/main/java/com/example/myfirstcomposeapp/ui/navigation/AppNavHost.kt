@@ -13,6 +13,7 @@ import com.example.myfirstcomposeapp.ui.screens.EditScreen
 import com.example.myfirstcomposeapp.ui.screens.ListScreen
 import com.example.myfirstcomposeapp.ui.screens.create.CreateScreen
 import com.example.myfirstcomposeapp.ui.screens.detail.ChangeDetailScreen
+import com.example.myfirstcomposeapp.ui.screens.login.LoginScreen
 import com.example.myfirstcomposeapp.ui.screens.overview.OverviewScreen
 import com.example.myfirstcomposeapp.ui.screens.trace.SavedFiltersScreen
 import com.example.myfirstcomposeapp.ui.screens.trace.TraceScreen
@@ -26,9 +27,18 @@ fun AppNavHost(vm: ChangeViewModel) {
     HomeScaffold(navController = navController) { innerPadding ->
         NavHost(
             navController = navController,
-            startDestination = Routes.OVERVIEW,
+            startDestination = Routes.LOGIN,
             modifier = Modifier.padding(innerPadding)
         ) {
+            composable(Routes.LOGIN) {
+                LoginScreen(
+                    onLogin = {
+                        navController.navigate(Routes.OVERVIEW) {
+                            popUpTo(Routes.LOGIN) { inclusive = true }
+                        }
+                    }
+                )
+            }
 
             // ===== 4 Tabs =====
             composable(Routes.OVERVIEW) {

@@ -1,6 +1,7 @@
 package com.example.myfirstcomposeapp.ui.navigation
 
 object Routes {
+    const val LOGIN = "app/login"
     // Home tabs
     const val OVERVIEW = "home/overview"   // 态势/总览
     const val WORK = "home/work"           // 待办
