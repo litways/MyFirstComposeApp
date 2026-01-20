@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.Button
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -24,8 +26,10 @@ import androidx.compose.ui.unit.dp
 fun LoginScreen(
     onLogin: () -> Unit
 ) {
-    var username by remember { mutableStateOf("admin") }
-    var password by remember { mutableStateOf("123456") }
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var rememberAccount by remember { mutableStateOf(false) }
+    var rememberPassword by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -51,6 +55,33 @@ fun LoginScreen(
             label = { Text("密码") },
             modifier = Modifier.fillMaxWidth(),
             visualTransformation = PasswordVisualTransformation()
+        )
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Checkbox(
+                checked = rememberAccount,
+                onCheckedChange = { rememberAccount = it }
+            )
+            Text(
+                text = "记住账号",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 12.dp)
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Checkbox(
+                checked = rememberPassword,
+                onCheckedChange = { rememberPassword = it }
+            )
+            Text(
+                text = "记住密码",
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 12.dp)
+            )
+        }
+        Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = "当前是演示状态，账号密码还是默认admin 123456",
+            style = MaterialTheme.typography.bodySmall
         )
         Spacer(modifier = Modifier.height(24.dp))
         Button(
