@@ -131,7 +131,7 @@ fun LoginScreen(
                     placeholder = { Text("请输入账号") },
                     modifier = Modifier.fillMaxWidth(),
                     isError = usernameError,
-                    keyboardOptions = KeyboardOptions(
+                    keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Next
                     ),
@@ -166,7 +166,7 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth(),
                     isError = passwordError,
                     visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
+                    keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done
                     ),
