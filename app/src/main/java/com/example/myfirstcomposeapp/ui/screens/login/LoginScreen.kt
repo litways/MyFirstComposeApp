@@ -126,7 +126,7 @@ fun LoginScreen(
                     placeholder = { Text("请输入账号") },
                     modifier = Modifier.fillMaxWidth(),
                     isError = usernameError,
-                    keyboardOptions = KeyboardOptions(
+                    keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Text,
                         imeAction = ImeAction.Next
                     ),
@@ -158,7 +158,7 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth(),
                     isError = passwordError,
                     visualTransformation = PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
+                    keyboardOptions = KeyboardOptions.Default.copy(
                         keyboardType = KeyboardType.Password,
                         imeAction = ImeAction.Done
                     ),
@@ -210,7 +210,11 @@ fun LoginScreen(
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
-                    Spacer(modifier = Modifier.weight(1f))
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
                     TextButton(onClick = { }) {
                         Text("忘记密码？")
                     }
