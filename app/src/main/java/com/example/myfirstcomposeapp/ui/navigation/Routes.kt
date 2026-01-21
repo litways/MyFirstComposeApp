@@ -7,6 +7,7 @@ object Routes {
     const val WORK = "home/work"           // 待办
     const val CREATE = "home/create"       // 发起
     const val TRACE = "home/trace"         // 追溯
+    const val USER = "home/user"           // 用户
 
     // Detail
     const val DETAIL = "change/detail"

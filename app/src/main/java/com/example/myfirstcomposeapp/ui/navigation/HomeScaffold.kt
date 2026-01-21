@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -30,7 +31,8 @@ fun HomeScaffold(
         BottomItem(Routes.OVERVIEW, "总览", Icons.Filled.Home),
         BottomItem(Routes.WORK, "待办", Icons.Filled.List),
         BottomItem(Routes.CREATE, "发起", Icons.Filled.Add),
-        BottomItem(Routes.TRACE, "追溯", Icons.Filled.Search)
+        BottomItem(Routes.TRACE, "追溯", Icons.Filled.Search),
+        BottomItem(Routes.USER, "用户", Icons.Filled.Person)
     )
 
     val backStackEntry by navController.currentBackStackEntryAsState()

@@ -17,6 +17,7 @@ import com.example.myfirstcomposeapp.ui.screens.login.LoginScreen
 import com.example.myfirstcomposeapp.ui.screens.overview.OverviewScreen
 import com.example.myfirstcomposeapp.ui.screens.trace.SavedFiltersScreen
 import com.example.myfirstcomposeapp.ui.screens.trace.TraceScreen
+import com.example.myfirstcomposeapp.ui.screens.user.UserScreen
 import com.example.myfirstcomposeapp.ui.screens.work.WorkScreen
 import com.example.myfirstcomposeapp.ui.viewmodel.ChangeViewModel
 
@@ -60,6 +61,18 @@ fun AppNavHost(vm: ChangeViewModel) {
                     vm = vm,
                     onOpenTraceList = { navController.navigate(Routes.LEGACY_LIST) },
                     onOpenSavedFilters = { navController.navigate(Routes.SAVED_FILTERS) }
+                )
+            }
+
+            composable(Routes.USER) {
+                UserScreen(
+                    vm = vm,
+                    onLogout = {
+                        navController.navigate(Routes.LOGIN) {
+                            launchSingleTop = true
+                            popUpTo(Routes.OVERVIEW) { inclusive = true }
+                        }
+                    }
                 )
             }
 
