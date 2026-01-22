@@ -74,7 +74,7 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -93,7 +93,6 @@ fun LoginScreen(
                 username = it
                 if (usernameError && it.isNotBlank()) usernameError = false
             },
-            // 账号
             placeholder = { Text("请输入账号") },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = usernameError,
@@ -121,7 +120,6 @@ fun LoginScreen(
                 password = it
                 if (passwordError && it.isNotBlank()) passwordError = false
             },
-            // 密码
             placeholder = { Text("请输入密码") },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = passwordError,
@@ -179,10 +177,7 @@ fun LoginScreen(
                         }
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "记住账号",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    Text(text = "记住账号")
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
@@ -196,10 +191,7 @@ fun LoginScreen(
                         }
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(
-                        text = "记住密码",
-                        style = MaterialTheme.typography.bodyMedium
-                    )
+                    Text(text = "记住密码")
                 }
             }
         }
@@ -237,16 +229,13 @@ fun LoginScreen(
                 contentColor = Color.White
             )
         ) {
-            Text(
-                text = "登录",
-                fontWeight = FontWeight.SemiBold
-            )
+            Text(text = "登录", fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Button(
-            onClick = { /* TODO: exit */ },
+            onClick = { /* TODO */ },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .height(48.dp),
@@ -256,10 +245,7 @@ fun LoginScreen(
                 contentColor = Color.Black
             )
         ) {
-            Text(
-                text = "退出",
-                fontWeight = FontWeight.SemiBold
-            )
+            Text(text = "退出", fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
