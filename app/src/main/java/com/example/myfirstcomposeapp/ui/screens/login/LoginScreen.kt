@@ -22,7 +22,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -39,6 +38,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -72,12 +72,15 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Login",
-            style = MaterialTheme.typography.headlineSmall,
-            fontWeight = FontWeight.SemiBold
+            text = "变化点管理",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -89,7 +92,7 @@ fun LoginScreen(
                 if (usernameError && it.isNotBlank()) usernameError = false
             },
             placeholder = { Text("Email or phone number") },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(0.9f),
             isError = usernameError,
             keyboardOptions = KeyboardOptions.Default.copy(
                 keyboardType = KeyboardType.Text,
@@ -116,7 +119,7 @@ fun LoginScreen(
                 if (passwordError && it.isNotBlank()) passwordError = false
             },
             placeholder = { Text("Enter password") },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(0.9f),
             isError = passwordError,
             visualTransformation = if (showPassword) {
                 VisualTransformation.None
@@ -155,9 +158,9 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(12.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(0.9f),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.Center
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Switch(
@@ -176,10 +179,6 @@ fun LoginScreen(
                     text = "Remember me",
                     style = MaterialTheme.typography.bodyMedium
                 )
-            }
-
-            TextButton(onClick = { /* TODO: forgot password */ }) {
-                Text("Forgot password?")
             }
         }
 
@@ -205,7 +204,7 @@ fun LoginScreen(
                 }
             },
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(0.9f)
                 .height(48.dp),
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(
@@ -215,6 +214,25 @@ fun LoginScreen(
         ) {
             Text(
                 text = "Sign in",
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Button(
+            onClick = { /* TODO: exit */ },
+            modifier = Modifier
+                .fillMaxWidth(0.9f)
+                .height(48.dp),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color(0xFFE0E0E0),
+                contentColor = Color.Black
+            )
+        ) {
+            Text(
+                text = "Exit",
                 fontWeight = FontWeight.SemiBold
             )
         }
