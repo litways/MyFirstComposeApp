@@ -17,10 +17,10 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -51,6 +51,7 @@ fun LoginScreen(
     }
 
     val savedRememberAccount = remember { prefs.getBoolean("remember_account", false) }
+    val savedRememberPassword = remember { prefs.getBoolean("remember_password", false) }
 
     var username by remember {
         mutableStateOf(
@@ -59,11 +60,12 @@ fun LoginScreen(
     }
     var password by remember {
         mutableStateOf(
-            if (savedRememberAccount) prefs.getString("password", "") ?: "" else ""
+            if (savedRememberPassword) prefs.getString("password", "") ?: "" else ""
         )
     }
 
     var rememberAccount by remember { mutableStateOf(savedRememberAccount) }
+    var rememberPassword by remember { mutableStateOf(savedRememberPassword) }
     var usernameError by remember { mutableStateOf(false) }
     var passwordError by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(false) }
@@ -83,7 +85,7 @@ fun LoginScreen(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(40.dp))
 
         TextField(
             value = username,
@@ -91,7 +93,6 @@ fun LoginScreen(
                 username = it
                 if (usernameError && it.isNotBlank()) usernameError = false
             },
-            // 账号
             placeholder = { Text("请输入账号") },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = usernameError,
@@ -119,7 +120,6 @@ fun LoginScreen(
                 password = it
                 if (passwordError && it.isNotBlank()) passwordError = false
             },
-            // 密码
             placeholder = { Text("请输入密码") },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = passwordError,
@@ -164,23 +164,35 @@ fun LoginScreen(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Switch(
-                    checked = rememberAccount,
-                    onCheckedChange = { isChecked ->
-                        rememberAccount = isChecked
-                        prefs.edit().putBoolean("remember_account", isChecked).apply()
-                        if (!isChecked) {
-                            prefs.edit().remove("username").apply()
-                            prefs.edit().remove("password").apply()
+            Column {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(
+                        checked = rememberAccount,
+                        onCheckedChange = { isChecked ->
+                            rememberAccount = isChecked
+                            prefs.edit().putBoolean("remember_account", isChecked).apply()
+                            if (!isChecked) {
+                                prefs.edit().remove("username").apply()
+                            }
                         }
-                    }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Remember me",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "记住账号")
+                }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(
+                        checked = rememberPassword,
+                        onCheckedChange = { isChecked ->
+                            rememberPassword = isChecked
+                            prefs.edit().putBoolean("remember_password", isChecked).apply()
+                            if (!isChecked) {
+                                prefs.edit().remove("password").apply()
+                            }
+                        }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(text = "记住密码")
+                }
             }
         }
 
@@ -197,9 +209,12 @@ fun LoginScreen(
                 if (!isUsernameBlank && !isPasswordBlank) {
                     if (rememberAccount) {
                         prefs.edit().putString("username", username).apply()
-                        prefs.edit().putString("password", password).apply()
                     } else {
                         prefs.edit().remove("username").apply()
+                    }
+                    if (rememberPassword) {
+                        prefs.edit().putString("password", password).apply()
+                    } else {
                         prefs.edit().remove("password").apply()
                     }
                     onLogin()
@@ -214,16 +229,13 @@ fun LoginScreen(
                 contentColor = Color.White
             )
         ) {
-            Text(
-                text = "Sign in",
-                fontWeight = FontWeight.SemiBold
-            )
+            Text(text = "登录", fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
 
         Button(
-            onClick = { /* TODO: exit */ },
+            onClick = { /* TODO */ },
             modifier = Modifier
                 .fillMaxWidth(0.9f)
                 .height(48.dp),
@@ -233,10 +245,15 @@ fun LoginScreen(
                 contentColor = Color.Black
             )
         ) {
-            Text(
-                text = "Exit",
-                fontWeight = FontWeight.SemiBold
-            )
+            Text(text = "退出", fontWeight = FontWeight.SemiBold)
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "忘记密码？",
+            color = Color(0xFF0D6EFD),
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
