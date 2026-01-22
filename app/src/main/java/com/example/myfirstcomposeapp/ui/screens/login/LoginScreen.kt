@@ -72,18 +72,18 @@ fun LoginScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp, vertical = 24.dp),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = "变化点管理",
-            style = MaterialTheme.typography.headlineMedium,
-            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
         TextField(
             value = username,
@@ -91,7 +91,8 @@ fun LoginScreen(
                 username = it
                 if (usernameError && it.isNotBlank()) usernameError = false
             },
-            placeholder = { Text("Email or phone number") },
+            // 账号
+            placeholder = { Text("请输入账号") },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = usernameError,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -118,7 +119,8 @@ fun LoginScreen(
                 password = it
                 if (passwordError && it.isNotBlank()) passwordError = false
             },
-            placeholder = { Text("Enter password") },
+            // 密码
+            placeholder = { Text("请输入密码") },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = passwordError,
             visualTransformation = if (showPassword) {
