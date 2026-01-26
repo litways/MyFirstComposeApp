@@ -1,10 +1,23 @@
 package com.example.myfirstcomposeapp.ui.screens.trace
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Card
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.ui.common.TypeDropdownField
 import com.example.myfirstcomposeapp.ui.viewmodel.ChangeViewModel
 
@@ -27,15 +40,17 @@ fun TraceScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text("查询条件", style = MaterialTheme.typography.titleMedium)
-                    TextButton(onClick = onOpenSavedFilters) { Text("保存的筛选") }
+                    Text(stringResource(R.string.trace_filters_title), style = MaterialTheme.typography.titleMedium)
+                    TextButton(onClick = onOpenSavedFilters) {
+                        Text(stringResource(R.string.trace_saved_filters))
+                    }
                 }
 
                 OutlinedTextField(
                     value = vm.keyword,
                     onValueChange = { vm.keyword = it },
-                    label = { Text("关键字") },
-                    placeholder = { Text("变化点/内容/创建人/产线/设备/工序") },
+                    label = { Text(stringResource(R.string.trace_keyword_label)) },
+                    placeholder = { Text(stringResource(R.string.trace_keyword_placeholder)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -43,8 +58,8 @@ fun TraceScreen(
                 OutlinedTextField(
                     value = vm.filterCreator,
                     onValueChange = { vm.filterCreator = it },
-                    label = { Text("创建人") },
-                    placeholder = { Text("例如：张三") },
+                    label = { Text(stringResource(R.string.label_creator)) },
+                    placeholder = { Text(stringResource(R.string.trace_creator_placeholder)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -53,35 +68,35 @@ fun TraceScreen(
                     FilterChip(
                         selected = vm.urgentOnly,
                         onClick = { vm.urgentOnly = !vm.urgentOnly },
-                        label = { Text("仅紧急") }
+                        label = { Text(stringResource(R.string.trace_urgent_only)) }
                     )
                 }
 
                 TypeDropdownField(
                     selected = vm.selectedType,
                     onSelect = { vm.selectedType = it },
-                    label = "类型：全部"
+                    label = stringResource(R.string.trace_type_label)
                 )
 
                 Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                     OutlinedTextField(
                         value = vm.filterLine,
                         onValueChange = { vm.filterLine = it },
-                        label = { Text("产线") },
+                        label = { Text(stringResource(R.string.label_line)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
                     OutlinedTextField(
                         value = vm.filterEquipment,
                         onValueChange = { vm.filterEquipment = it },
-                        label = { Text("设备") },
+                        label = { Text(stringResource(R.string.label_equipment)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
                     OutlinedTextField(
                         value = vm.filterProcess,
                         onValueChange = { vm.filterProcess = it },
-                        label = { Text("工序") },
+                        label = { Text(stringResource(R.string.label_process)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
@@ -91,16 +106,16 @@ fun TraceScreen(
                     OutlinedTextField(
                         value = vm.startDate,
                         onValueChange = { vm.startDate = it },
-                        label = { Text("起始日期（更新时间）") },
-                        placeholder = { Text("yyyy-MM-dd") },
+                        label = { Text(stringResource(R.string.trace_start_date_label)) },
+                        placeholder = { Text(stringResource(R.string.trace_date_placeholder)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
                     OutlinedTextField(
                         value = vm.endDate,
                         onValueChange = { vm.endDate = it },
-                        label = { Text("结束日期（更新时间）") },
-                        placeholder = { Text("yyyy-MM-dd") },
+                        label = { Text(stringResource(R.string.trace_end_date_label)) },
+                        placeholder = { Text(stringResource(R.string.trace_date_placeholder)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
@@ -122,15 +137,15 @@ fun TraceScreen(
                             vm.startDate = ""
                             vm.endDate = ""
                         }
-                    ) { Text("清空") }
+                    ) { Text(stringResource(R.string.action_clear)) }
 
-                    Button(onClick = onOpenTraceList) { Text("应用并查看列表") }
+                    Button(onClick = onOpenTraceList) { Text(stringResource(R.string.trace_apply)) }
                 }
             }
         }
 
         Text(
-            "说明：日期范围按“更新时间”过滤（格式 yyyy-MM-dd）。",
+            stringResource(R.string.trace_hint),
             style = MaterialTheme.typography.bodySmall
         )
     }

@@ -1,10 +1,26 @@
 package com.example.myfirstcomposeapp.ui.screens.help
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -14,10 +30,13 @@ fun HelpScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("帮助说明") },
+                title = { Text(stringResource(R.string.help_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Text("←")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back)
+                        )
                     }
                 }
             )
@@ -33,11 +52,10 @@ fun HelpScreen(
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("变化点管理是什么？", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.help_intro_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        "变化点管理用于记录、跟踪和审查生产现场在人员、设备、物料、方法、环境等方面的变更，" +
-                                "以降低质量和安全风险。",
+                        stringResource(R.string.help_intro_body),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
@@ -45,23 +63,23 @@ fun HelpScreen(
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("当前版本支持内容", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.help_current_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text("• 变化点登记与编辑")
-                    Text("• 流程状态查看（草稿 / 已提交 / 已确认等）")
-                    Text("• 操作记录时间轴")
-                    Text("• 列表筛选与追溯查看")
+                    Text(stringResource(R.string.help_current_item_entry))
+                    Text(stringResource(R.string.help_current_item_status))
+                    Text(stringResource(R.string.help_current_item_log))
+                    Text(stringResource(R.string.help_current_item_trace))
                 }
             }
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("后续规划", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.help_future_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text("• 证据附件上传")
-                    Text("• 报表导出")
-                    Text("• 离线登记与同步")
-                    Text("• 多角色权限控制")
+                    Text(stringResource(R.string.help_future_item_evidence))
+                    Text(stringResource(R.string.help_future_item_report))
+                    Text(stringResource(R.string.help_future_item_offline))
+                    Text(stringResource(R.string.help_future_item_roles))
                 }
             }
         }

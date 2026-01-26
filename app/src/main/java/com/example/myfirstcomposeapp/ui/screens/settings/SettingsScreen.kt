@@ -1,10 +1,26 @@
 package com.example.myfirstcomposeapp.ui.screens.settings
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -14,10 +30,13 @@ fun SettingsScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("设置") },
+                title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Text("←")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back)
+                        )
                     }
                 }
             )
@@ -33,29 +52,29 @@ fun SettingsScreen(
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("当前用户", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.settings_user_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text("角色：示例用户")
-                    Text("权限：仅用于演示")
+                    Text(stringResource(R.string.settings_role_demo))
+                    Text(stringResource(R.string.settings_permission_demo))
                 }
             }
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("应用设置", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.settings_app_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text("• 通知设置（占位）")
-                    Text("• 显示密度（占位）")
-                    Text("• 语言设置（占位）")
+                    Text(stringResource(R.string.settings_notification_placeholder))
+                    Text(stringResource(R.string.settings_density_placeholder))
+                    Text(stringResource(R.string.settings_language_placeholder))
                 }
             }
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("关于", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.settings_about_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text("变化点管理 App")
-                    Text("版本：Demo / UI-only")
+                    Text(stringResource(R.string.settings_app_name))
+                    Text(stringResource(R.string.settings_version))
                 }
             }
         }

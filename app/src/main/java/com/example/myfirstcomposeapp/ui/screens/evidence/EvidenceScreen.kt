@@ -1,10 +1,31 @@
 package com.example.myfirstcomposeapp.ui.screens.evidence
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -19,10 +40,13 @@ fun EvidenceScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("证据包") },
+                title = { Text(stringResource(R.string.evidence_title)) },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Text("←")
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back)
+                        )
                     }
                 }
             )
@@ -33,12 +57,12 @@ fun EvidenceScreen(
                 onClick = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            "当前版本为 UI 占位，后续支持上传照片、附件等证据"
+                            stringResource(R.string.evidence_fab_message)
                         )
                     }
                 }
             ) {
-                Text("+")
+                Text(stringResource(R.string.action_add))
             }
         }
     ) { padding ->
@@ -51,28 +75,27 @@ fun EvidenceScreen(
         ) {
 
             Text(
-                text = "关联变化点 ID：$changeId",
+                text = stringResource(R.string.evidence_change_id, changeId),
                 style = MaterialTheme.typography.bodySmall
             )
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("证据清单（占位）", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.evidence_list_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
-                    Text("• 现场照片")
-                    Text("• 首件确认记录")
-                    Text("• QA / 工艺确认截图")
-                    Text("• 放行审批记录")
+                    Text(stringResource(R.string.evidence_item_photo))
+                    Text(stringResource(R.string.evidence_item_first_check))
+                    Text(stringResource(R.string.evidence_item_confirm))
+                    Text(stringResource(R.string.evidence_item_release))
                 }
             }
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text("说明", style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.common_note_title), style = MaterialTheme.typography.titleMedium)
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        "证据包用于支撑变化点的审批与追溯。" +
-                                "当前版本仅展示结构与入口，不涉及真实附件存储。",
+                        stringResource(R.string.evidence_note),
                         style = MaterialTheme.typography.bodySmall
                     )
                 }

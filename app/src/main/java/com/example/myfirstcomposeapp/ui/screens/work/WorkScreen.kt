@@ -1,12 +1,20 @@
 package com.example.myfirstcomposeapp.ui.screens.work
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Card
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.ui.navigation.Routes
 import com.example.myfirstcomposeapp.ui.viewmodel.ChangeViewModel
 
@@ -21,11 +29,11 @@ fun WorkScreen(
         modifier = Modifier.fillMaxSize().padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        Text("我的待办", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.work_title), style = MaterialTheme.typography.titleLarge)
 
         if (items.isEmpty()) {
             Text(
-                "当前没有待处理的变化点",
+                stringResource(R.string.work_empty),
                 style = MaterialTheme.typography.bodyMedium
             )
         } else {
@@ -36,7 +44,7 @@ fun WorkScreen(
                 ) {
                     Column(Modifier.padding(12.dp)) {
                         Text(item.title, style = MaterialTheme.typography.titleMedium)
-                        Text("${item.type} · ${item.status}")
+                        Text(stringResource(R.string.work_item_meta, item.type.label, item.status.label))
                     }
                 }
             }
