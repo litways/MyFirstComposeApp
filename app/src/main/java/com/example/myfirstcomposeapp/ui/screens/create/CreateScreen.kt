@@ -1,11 +1,20 @@
 package com.example.myfirstcomposeapp.ui.screens.create
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 
 @Composable
 fun CreateScreen(
@@ -17,23 +26,23 @@ fun CreateScreen(
     ) {
         ElevatedCard(shape = MaterialTheme.shapes.large) {
             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Text("发起变化点", style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.create_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
                 Text(
-                    "此页为“发起入口页”（UI-only）。点击按钮进入新增表单。",
+                    stringResource(R.string.create_intro),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Button(onClick = onCreate, modifier = Modifier.fillMaxWidth()) {
-                    Text("新建变化点")
+                    Text(stringResource(R.string.create_button))
                 }
             }
         }
 
         ElevatedCard(shape = MaterialTheme.shapes.large) {
             Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("表单提示", style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                Text("• 必填：创建人、变化点类型、变化点标题、变化内容", style = MaterialTheme.typography.bodySmall)
-                Text("• 推荐：产线/设备/工序、是否紧急", style = MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.create_tips_title), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.create_tip_required), style = MaterialTheme.typography.bodySmall)
+                Text(stringResource(R.string.create_tip_optional), style = MaterialTheme.typography.bodySmall)
             }
         }
     }

@@ -10,29 +10,34 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.myfirstcomposeapp.R
 
 private data class BottomItem(
     val route: String,
-    val label: String,
+    val labelRes: Int,
     val icon: ImageVector
 )
 
 @Composable
 fun HomeScaffold(
     navController: NavController,
+    snackbarHostState: SnackbarHostState,
     content: @Composable (padding: androidx.compose.foundation.layout.PaddingValues) -> Unit
 ) {
     val items = listOf(
-        BottomItem(Routes.OVERVIEW, "总览", Icons.Filled.Home),
-        BottomItem(Routes.WORK, "待办", Icons.Filled.List),
-        BottomItem(Routes.CREATE, "发起", Icons.Filled.Add),
-        BottomItem(Routes.TRACE, "追溯", Icons.Filled.Search),
-        BottomItem(Routes.USER, "用户", Icons.Filled.Person)
+        BottomItem(Routes.OVERVIEW, R.string.nav_overview, Icons.Filled.Home),
+        BottomItem(Routes.WORK, R.string.nav_work, Icons.Filled.List),
+        BottomItem(Routes.CREATE, R.string.nav_create, Icons.Filled.Add),
+        BottomItem(Routes.TRACE, R.string.nav_trace, Icons.Filled.Search),
+        BottomItem(Routes.USER, R.string.nav_user, Icons.Filled.Person)
     )
 
     val backStackEntry by navController.currentBackStackEntryAsState()
@@ -54,13 +59,19 @@ fun HomeScaffold(
                                     popUpTo(Routes.OVERVIEW) { saveState = true }
                                 }
                             },
-                            icon = { Icon(item.icon, contentDescription = item.label) },
-                            label = { androidx.compose.material3.Text(item.label) }
+                            icon = {
+                                Icon(
+                                    item.icon,
+                                    contentDescription = stringResource(item.labelRes)
+                                )
+                            },
+                            label = { androidx.compose.material3.Text(stringResource(item.labelRes)) }
                         )
                     }
                 }
             }
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) },
         content = content
     )
 }

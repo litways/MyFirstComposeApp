@@ -1,13 +1,11 @@
 package com.example.myfirstcomposeapp.ui.common
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenu
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,20 +14,27 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.example.myfirstcomposeapp.model.ChangeType
+import com.example.myfirstcomposeapp.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TypeDropdownField(
     selected: ChangeType?,
     onSelect: (ChangeType?) -> Unit,
-    label: String = "变化点类型",
+    label: String,
     isError: Boolean = false,
     supportingText: String? = null
 ) {
     var expanded by remember { mutableStateOf(false) }
-    val text = selected?.name ?: "全部"
+    val text = selected?.label ?: stringResource(R.string.filter_all_label)
 
-    Box(modifier = Modifier.fillMaxWidth()) {
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier = Modifier.fillMaxWidth()
+    ) {
         OutlinedTextField(
             value = text,
             onValueChange = {},
@@ -40,26 +45,22 @@ fun TypeDropdownField(
             supportingText = {
                 if (!supportingText.isNullOrBlank()) Text(supportingText)
             },
-            trailingIcon = {
-                IconButton(onClick = { expanded = !expanded }) {
-                    Icon(Icons.Filled.ArrowDropDown, contentDescription = "展开")
-                }
-            },
-            modifier = Modifier.fillMaxWidth()
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier.fillMaxWidth().menuAnchor()
         )
 
-        DropdownMenu(
+        ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text("全部") },
+                text = { Text(stringResource(R.string.filter_all_label)) },
                 onClick = { onSelect(null); expanded = false }
             )
             // 兼容 Kotlin 1.8/1.9：values() 最稳
             ChangeType.values().forEach { t ->
                 DropdownMenuItem(
-                    text = { Text(t.name) },
+                    text = { Text(t.label) },
                     onClick = { onSelect(t); expanded = false }
                 )
             }

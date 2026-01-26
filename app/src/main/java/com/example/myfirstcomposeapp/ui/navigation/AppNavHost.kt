@@ -2,12 +2,16 @@ package com.example.myfirstcomposeapp.ui.navigation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.ui.screens.AddScreen
 import com.example.myfirstcomposeapp.ui.screens.EditScreen
 import com.example.myfirstcomposeapp.ui.screens.ListScreen
@@ -20,12 +24,19 @@ import com.example.myfirstcomposeapp.ui.screens.trace.TraceScreen
 import com.example.myfirstcomposeapp.ui.screens.user.UserScreen
 import com.example.myfirstcomposeapp.ui.screens.work.WorkScreen
 import com.example.myfirstcomposeapp.ui.viewmodel.ChangeViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun AppNavHost(vm: ChangeViewModel) {
     val navController = rememberNavController()
+    val snackbarHostState = remember { androidx.compose.material3.SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+    val saveSuccessMessage = stringResource(R.string.snackbar_save_success)
+    val saveErrorMessage = stringResource(R.string.snackbar_save_error)
+    val deleteSuccessMessage = stringResource(R.string.snackbar_delete_success)
+    val deleteErrorMessage = stringResource(R.string.snackbar_delete_error)
 
-    HomeScaffold(navController = navController) { innerPadding ->
+    HomeScaffold(navController = navController, snackbarHostState = snackbarHostState) { innerPadding ->
         NavHost(
             navController = navController,
             startDestination = Routes.LOGIN,
@@ -100,15 +111,29 @@ fun AppNavHost(vm: ChangeViewModel) {
                     vm = vm,
                     onAdd = { navController.navigate(Routes.LEGACY_ADD) },
                     onEdit = { id -> navController.navigate(Routes.detail(id)) },
-                    onDelete = { id -> vm.delete(id) }
+                    onDelete = { id ->
+                        runCatching { vm.delete(id) }
+                            .onSuccess {
+                                scope.launch { snackbarHostState.showSnackbar(deleteSuccessMessage) }
+                            }
+                            .onFailure {
+                                scope.launch { snackbarHostState.showSnackbar(deleteErrorMessage) }
+                            }
+                    }
                 )
             }
 
             composable(Routes.LEGACY_ADD) {
                 AddScreen(
                     onSave = { draft ->
-                        vm.add(draft)
-                        navController.popBackStack()
+                        runCatching { vm.add(draft) }
+                            .onSuccess {
+                                scope.launch { snackbarHostState.showSnackbar(saveSuccessMessage) }
+                                navController.popBackStack()
+                            }
+                            .onFailure {
+                                scope.launch { snackbarHostState.showSnackbar(saveErrorMessage) }
+                            }
                     },
                     onCancel = { navController.popBackStack() }
                 )
@@ -123,13 +148,25 @@ fun AppNavHost(vm: ChangeViewModel) {
                     vm = vm,
                     id = id,
                     onSave = { draft ->
-                        vm.update(id, draft)
-                        navController.popBackStack()
+                        runCatching { vm.update(id, draft) }
+                            .onSuccess {
+                                scope.launch { snackbarHostState.showSnackbar(saveSuccessMessage) }
+                                navController.popBackStack()
+                            }
+                            .onFailure {
+                                scope.launch { snackbarHostState.showSnackbar(saveErrorMessage) }
+                            }
                     },
                     onCancel = { navController.popBackStack() },
                     onDelete = {
-                        vm.delete(id)
-                        navController.popBackStack()
+                        runCatching { vm.delete(id) }
+                            .onSuccess {
+                                scope.launch { snackbarHostState.showSnackbar(deleteSuccessMessage) }
+                                navController.popBackStack()
+                            }
+                            .onFailure {
+                                scope.launch { snackbarHostState.showSnackbar(deleteErrorMessage) }
+                            }
                     }
                 )
             }

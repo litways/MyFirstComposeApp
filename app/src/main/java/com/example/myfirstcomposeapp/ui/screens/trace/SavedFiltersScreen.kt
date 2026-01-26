@@ -1,10 +1,25 @@
 package com.example.myfirstcomposeapp.ui.screens.trace
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -14,8 +29,15 @@ fun SavedFiltersScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("保存的筛选（占位）") },
-                navigationIcon = { IconButton(onClick = onBack) { Text("←") } }
+                title = { Text(stringResource(R.string.saved_filters_title)) },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.action_back)
+                        )
+                    }
+                }
             )
         }
     ) { padding ->
@@ -25,8 +47,8 @@ fun SavedFiltersScreen(
         ) {
             Card(shape = MaterialTheme.shapes.large) {
                 Column(Modifier.fillMaxWidth().padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text("筛选模板", style = MaterialTheme.typography.titleMedium)
-                    Text("当前版本只提供 UI 占位。后续规划将支持保存/编辑/共享筛选条件。", style = MaterialTheme.typography.bodySmall)
+                    Text(stringResource(R.string.saved_filters_card_title), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.saved_filters_hint), style = MaterialTheme.typography.bodySmall)
                 }
             }
         }

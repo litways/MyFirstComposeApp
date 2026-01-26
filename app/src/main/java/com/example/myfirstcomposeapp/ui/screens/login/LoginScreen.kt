@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -40,6 +41,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 
 @Composable
 fun LoginScreen(
@@ -78,7 +80,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "变化点管理",
+            text = stringResource(R.string.login_title),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.fillMaxWidth(),
@@ -93,7 +95,7 @@ fun LoginScreen(
                 username = it
                 if (usernameError && it.isNotBlank()) usernameError = false
             },
-            placeholder = { Text("请输入账号") },
+            placeholder = { Text(stringResource(R.string.login_username_placeholder)) },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = usernameError,
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -120,7 +122,7 @@ fun LoginScreen(
                 password = it
                 if (passwordError && it.isNotBlank()) passwordError = false
             },
-            placeholder = { Text("请输入密码") },
+            placeholder = { Text(stringResource(R.string.login_password_placeholder)) },
             modifier = Modifier.fillMaxWidth(0.9f),
             isError = passwordError,
             visualTransformation = if (showPassword) {
@@ -177,7 +179,7 @@ fun LoginScreen(
                         }
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "记住账号")
+                    Text(text = stringResource(R.string.login_remember_account))
                 }
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
@@ -191,7 +193,7 @@ fun LoginScreen(
                         }
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "记住密码")
+                    Text(text = stringResource(R.string.login_remember_password))
                 }
             }
         }
@@ -229,7 +231,7 @@ fun LoginScreen(
                 contentColor = Color.White
             )
         ) {
-            Text(text = "登录", fontWeight = FontWeight.SemiBold)
+            Text(text = stringResource(R.string.action_login), fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -245,13 +247,13 @@ fun LoginScreen(
                 contentColor = Color.Black
             )
         ) {
-            Text(text = "退出", fontWeight = FontWeight.SemiBold)
+            Text(text = stringResource(R.string.action_exit), fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = "忘记密码？",
+            text = stringResource(R.string.login_forgot_password),
             color = Color(0xFF0D6EFD),
             style = MaterialTheme.typography.bodyMedium
         )

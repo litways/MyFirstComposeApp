@@ -21,9 +21,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.ui.viewmodel.ChangeViewModel
 
 @Composable
@@ -33,6 +35,7 @@ fun UserScreen(
 ) {
     var showPasswordDialog by remember { mutableStateOf(false) }
     var changeResult by remember { mutableStateOf<String?>(null) }
+    val passwordChangedText = stringResource(R.string.user_password_changed)
 
     Column(
         modifier = Modifier
@@ -42,22 +45,22 @@ fun UserScreen(
     ) {
         Card {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("用户信息", style = MaterialTheme.typography.titleMedium)
-                Text("账号：${vm.currentUser}")
-                Text("角色：${vm.currentRole.displayName}")
+                Text(stringResource(R.string.user_info_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.user_account_label, vm.currentUser))
+                Text(stringResource(R.string.user_role_label, stringResource(vm.currentRole.labelRes)))
             }
         }
 
         Card {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text("账号操作", style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.user_actions_title), style = MaterialTheme.typography.titleMedium)
                 Row {
                     Button(onClick = { showPasswordDialog = true }) {
-                        Text("修改密码")
+                        Text(stringResource(R.string.user_change_password))
                     }
                     Spacer(Modifier.width(12.dp))
                     Button(onClick = onLogout) {
-                        Text("账号登出")
+                        Text(stringResource(R.string.user_logout))
                     }
                 }
                 changeResult?.let { result ->
@@ -68,9 +71,9 @@ fun UserScreen(
 
         Card {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("说明", style = MaterialTheme.typography.titleMedium)
-                Text("• 密码修改与登出为 UI 演示入口。")
-                Text("• 若接入真实账号体系，可在此绑定接口。")
+                Text(stringResource(R.string.common_note_title), style = MaterialTheme.typography.titleMedium)
+                Text(stringResource(R.string.user_note_change_password))
+                Text(stringResource(R.string.user_note_real_account))
             }
         }
     }
@@ -79,7 +82,7 @@ fun UserScreen(
         PasswordChangeDialog(
             onDismiss = { showPasswordDialog = false },
             onConfirm = {
-                changeResult = "密码已更新（演示）"
+                changeResult = passwordChangedText
                 showPasswordDialog = false
             }
         )
@@ -99,32 +102,32 @@ private fun PasswordChangeDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("修改密码") },
+        title = { Text(stringResource(R.string.user_change_password)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 OutlinedTextField(
                     value = oldPassword,
                     onValueChange = { oldPassword = it },
-                    label = { Text("旧密码") },
+                    label = { Text(stringResource(R.string.user_old_password)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     visualTransformation = PasswordVisualTransformation()
                 )
                 OutlinedTextField(
                     value = newPassword,
                     onValueChange = { newPassword = it },
-                    label = { Text("新密码") },
+                    label = { Text(stringResource(R.string.user_new_password)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     visualTransformation = PasswordVisualTransformation()
                 )
                 OutlinedTextField(
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
-                    label = { Text("确认密码") },
+                    label = { Text(stringResource(R.string.user_confirm_password)) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     visualTransformation = PasswordVisualTransformation()
                 )
                 if (confirmPassword.isNotEmpty() && !passwordsMatch) {
-                    Text("两次输入的密码不一致", color = MaterialTheme.colorScheme.error)
+                    Text(stringResource(R.string.user_password_mismatch), color = MaterialTheme.colorScheme.error)
                 }
             }
         },
@@ -133,12 +136,12 @@ private fun PasswordChangeDialog(
                 onClick = onConfirm,
                 enabled = passwordsMatch && oldPassword.isNotBlank()
             ) {
-                Text("确认")
+                Text(stringResource(R.string.action_confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("取消")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

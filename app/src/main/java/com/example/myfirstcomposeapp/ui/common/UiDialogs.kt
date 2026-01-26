@@ -12,7 +12,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import com.example.myfirstcomposeapp.R
 
 /**
  * 通用对话框集合（Day14 最终态）
@@ -29,9 +31,11 @@ fun ConfirmDialog(
     message: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
-    confirmText: String = "确认",
-    dismissText: String = "取消"
+    confirmText: String? = null,
+    dismissText: String? = null
 ) {
+    val resolvedConfirmText = confirmText ?: stringResource(R.string.action_confirm)
+    val resolvedDismissText = dismissText ?: stringResource(R.string.action_cancel)
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
@@ -41,12 +45,12 @@ fun ConfirmDialog(
                 onConfirm()
                 onDismiss()
             }) {
-                Text(confirmText)
+                Text(resolvedConfirmText)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(dismissText)
+                Text(resolvedDismissText)
             }
         }
     )
@@ -59,15 +63,16 @@ fun InfoDialog(
     title: String,
     message: String,
     onDismiss: () -> Unit,
-    buttonText: String = "知道了"
+    buttonText: String? = null
 ) {
+    val resolvedButtonText = buttonText ?: stringResource(R.string.action_got_it)
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(title) },
         text = { Text(message) },
         confirmButton = {
             TextButton(onClick = onDismiss) {
-                Text(buttonText)
+                Text(resolvedButtonText)
             }
         }
     )
@@ -83,12 +88,14 @@ fun TextInputDialog(
     initialValue: String,
     onCancel: () -> Unit,
     onConfirm: (String) -> Unit,
-    confirmText: String = "确认",
-    cancelText: String = "取消",
+    confirmText: String? = null,
+    cancelText: String? = null,
     singleLine: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     var value by remember(initialValue) { mutableStateOf(initialValue) }
+    val resolvedConfirmText = confirmText ?: stringResource(R.string.action_confirm)
+    val resolvedCancelText = cancelText ?: stringResource(R.string.action_cancel)
 
     AlertDialog(
         modifier = modifier,
@@ -105,10 +112,10 @@ fun TextInputDialog(
             )
         },
         confirmButton = {
-            TextButton(onClick = { onConfirm(value) }) { Text(confirmText) }
+            TextButton(onClick = { onConfirm(value) }) { Text(resolvedConfirmText) }
         },
         dismissButton = {
-            TextButton(onClick = onCancel) { Text(cancelText) }
+            TextButton(onClick = onCancel) { Text(resolvedCancelText) }
         }
     )
 }
