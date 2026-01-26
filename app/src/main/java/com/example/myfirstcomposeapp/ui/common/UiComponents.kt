@@ -1,11 +1,12 @@
 package com.example.myfirstcomposeapp.ui.common
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenu
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -46,10 +47,12 @@ fun TypeDropdownField(
                 if (!supportingText.isNullOrBlank()) Text(supportingText)
             },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            modifier = Modifier.fillMaxWidth().menuAnchor()
+            modifier = Modifier
+                .fillMaxWidth()
+                .menuAnchor(MenuAnchorType.PrimaryNotEditable, enabled = true)
         )
 
-        ExposedDropdownMenu(
+        DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
@@ -58,7 +61,7 @@ fun TypeDropdownField(
                 onClick = { onSelect(null); expanded = false }
             )
             // 兼容 Kotlin 1.8/1.9：values() 最稳
-            ChangeType.values().forEach { t ->
+            ChangeType.entries.forEach { t ->
                 DropdownMenuItem(
                     text = { Text(t.label) },
                     onClick = { onSelect(t); expanded = false }
