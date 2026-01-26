@@ -39,8 +39,8 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.KeyboardOptions
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.model.ChangeDraft
@@ -66,9 +66,9 @@ fun AddScreen(
 
     val canSave =
         creator.trim().isNotEmpty() &&
-                type != null &&
-                title.trim().isNotEmpty() &&
-                content.trim().isNotEmpty()
+            type != null &&
+            title.trim().isNotEmpty() &&
+            content.trim().isNotEmpty()
 
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
@@ -132,7 +132,7 @@ fun AddScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(scrollState) // 关键：允许上下滚动
-                .imePadding()               // 关键：键盘弹出时内容不被遮挡
+                .imePadding()                // 关键：键盘弹出时内容不被遮挡
                 .padding(Dimens.spacingLg),
             verticalArrangement = Arrangement.spacedBy(Dimens.spacingMd)
         ) {
@@ -228,7 +228,10 @@ fun AddScreen(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(stringResource(R.string.label_urgent), style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            stringResource(R.string.label_urgent),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                         Switch(checked = urgent, onCheckedChange = { urgent = it })
                     }
                 }

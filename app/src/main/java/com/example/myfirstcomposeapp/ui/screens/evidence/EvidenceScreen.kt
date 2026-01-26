@@ -36,6 +36,8 @@ fun EvidenceScreen(
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+
+    // 预先读取 stringResource，避免在 coroutine/lambda 中直接调用
     val placeholderMessage = stringResource(R.string.evidence_fab_message)
     val addLabel = stringResource(R.string.action_add)
 
@@ -58,9 +60,7 @@ fun EvidenceScreen(
             FloatingActionButton(
                 onClick = {
                     scope.launch {
-                        snackbarHostState.showSnackbar(
-                            placeholderMessage
-                        )
+                        snackbarHostState.showSnackbar(placeholderMessage)
                     }
                 }
             ) {
@@ -75,7 +75,6 @@ fun EvidenceScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-
             Text(
                 text = stringResource(R.string.evidence_change_id, changeId),
                 style = MaterialTheme.typography.bodySmall
@@ -83,7 +82,10 @@ fun EvidenceScreen(
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text(stringResource(R.string.evidence_list_title), style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        stringResource(R.string.evidence_list_title),
+                        style = MaterialTheme.typography.titleMedium
+                    )
                     Spacer(Modifier.height(8.dp))
                     Text(stringResource(R.string.evidence_item_photo))
                     Text(stringResource(R.string.evidence_item_first_check))
@@ -94,7 +96,10 @@ fun EvidenceScreen(
 
             Card {
                 Column(Modifier.padding(16.dp)) {
-                    Text(stringResource(R.string.common_note_title), style = MaterialTheme.typography.titleMedium)
+                    Text(
+                        stringResource(R.string.common_note_title),
+                        style = MaterialTheme.typography.titleMedium
+                    )
                     Spacer(Modifier.height(8.dp))
                     Text(
                         stringResource(R.string.evidence_note),
