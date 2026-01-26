@@ -39,6 +39,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardOptions
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.myfirstcomposeapp.R
@@ -65,9 +66,9 @@ fun AddScreen(
 
     val canSave =
         creator.trim().isNotEmpty() &&
-                type != null &&
-                title.trim().isNotEmpty() &&
-                content.trim().isNotEmpty()
+            type != null &&
+            title.trim().isNotEmpty() &&
+            content.trim().isNotEmpty()
 
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
@@ -131,7 +132,7 @@ fun AddScreen(
                 .fillMaxSize()
                 .padding(padding)
                 .verticalScroll(scrollState) // 关键：允许上下滚动
-                .imePadding()               // 关键：键盘弹出时内容不被遮挡
+                .imePadding()                // 关键：键盘弹出时内容不被遮挡
                 .padding(Dimens.spacingLg),
             verticalArrangement = Arrangement.spacedBy(Dimens.spacingMd)
         ) {
@@ -160,7 +161,7 @@ fun AddScreen(
                                 Text(stringResource(R.string.error_creator_required))
                             }
                         },
-                        keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                        keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next
                         ),
@@ -193,7 +194,7 @@ fun AddScreen(
                                 Text(stringResource(R.string.error_title_required))
                             }
                         },
-                        keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                        keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next
                         ),
@@ -214,7 +215,7 @@ fun AddScreen(
                                 Text(stringResource(R.string.error_content_required))
                             }
                         },
-                        keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                        keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next
                         ),
@@ -227,7 +228,10 @@ fun AddScreen(
                         Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(stringResource(R.string.label_urgent), style = MaterialTheme.typography.bodyMedium)
+                        Text(
+                            stringResource(R.string.label_urgent),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
                         Switch(checked = urgent, onCheckedChange = { urgent = it })
                     }
                 }
@@ -252,7 +256,7 @@ fun AddScreen(
                         label = { Text(stringResource(R.string.label_line)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                        keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next
                         ),
@@ -267,7 +271,7 @@ fun AddScreen(
                         label = { Text(stringResource(R.string.label_equipment)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                        keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Next
                         ),
@@ -282,7 +286,7 @@ fun AddScreen(
                         label = { Text(stringResource(R.string.label_process)) },
                         modifier = Modifier.fillMaxWidth(),
                         singleLine = true,
-                        keyboardOptions = androidx.compose.ui.text.input.KeyboardOptions(
+                        keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Text,
                             imeAction = ImeAction.Done
                         ),

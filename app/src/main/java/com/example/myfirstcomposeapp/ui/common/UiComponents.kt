@@ -15,8 +15,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.example.myfirstcomposeapp.model.ChangeType
 import com.example.myfirstcomposeapp.R
+import com.example.myfirstcomposeapp.model.ChangeType
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
