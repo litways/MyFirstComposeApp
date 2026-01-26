@@ -15,6 +15,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.AssistChip
+import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -23,7 +25,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -33,14 +34,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.model.ChangeItem
+import com.example.myfirstcomposeapp.ui.theme.Dimens
 import com.example.myfirstcomposeapp.ui.viewmodel.ChangeViewModel
 
 // Material Icons (androidx.compose.material:material-icons-extended)
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
 
 /**
  * Legacy CRUD 列表（与旧 Add/Edit 入口保持一致）
@@ -62,10 +67,13 @@ fun ListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("变化点列表") },
+                title = { Text(stringResource(R.string.list_title)) },
                 actions = {
                     IconButton(onClick = onAdd) {
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = "新增")
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = stringResource(R.string.action_add)
+                        )
                     }
                 }
             )
@@ -76,8 +84,8 @@ fun ListScreen(
         } else {
             LazyColumn(
                 modifier = Modifier.fillMaxSize().padding(padding),
-                contentPadding = PaddingValues(12.dp),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                contentPadding = PaddingValues(Dimens.spacingMd),
+                verticalArrangement = Arrangement.spacedBy(Dimens.spacingSm)
             ) {
                 items(items) { item ->
                     ChangeItemRow(
@@ -88,7 +96,7 @@ fun ListScreen(
                     )
                 }
 
-                item { Spacer(Modifier.height(72.dp)) }
+                item { Spacer(Modifier.height(Dimens.spacing4xl)) }
             }
         }
     }
@@ -97,16 +105,18 @@ fun ListScreen(
     if (deleteId != null) {
         AlertDialog(
             onDismissRequest = { pendingDeleteId = null },
-            title = { Text("确认删除") },
-            text = { Text("删除后无法恢复，确定要删除该变化点吗？") },
+            title = { Text(stringResource(R.string.list_delete_title)) },
+            text = { Text(stringResource(R.string.list_delete_message)) },
             confirmButton = {
                 Button(onClick = {
                     onDelete(deleteId)
                     pendingDeleteId = null
-                }) { Text("删除") }
+                }) { Text(stringResource(R.string.action_delete)) }
             },
             dismissButton = {
-                OutlinedButton(onClick = { pendingDeleteId = null }) { Text("取消") }
+                OutlinedButton(onClick = { pendingDeleteId = null }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
             }
         )
     }
@@ -124,41 +134,72 @@ private fun ChangeItemRow(
             .fillMaxWidth()
             .clickable(onClick = onClick)
     ) {
-        Column(Modifier.fillMaxWidth().padding(12.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        Column(
+            Modifier.fillMaxWidth().padding(Dimens.spacingMd),
+            verticalArrangement = Arrangement.spacedBy(Dimens.spacingSm)
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.spacedBy(Dimens.spacingMd),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Column(Modifier.weight(1f)) {
                     Text(item.title, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-                    Text(
-                        "${item.type.name} · ${item.status.name}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                if (item.urgent) {
-                    Text("紧急", style = MaterialTheme.typography.labelMedium, color = MaterialTheme.colorScheme.error)
+                    Row(horizontalArrangement = Arrangement.spacedBy(Dimens.spacingSm)) {
+                        AssistChip(
+                            onClick = {},
+                            label = { Text(item.status.label) }
+                        )
+                        AssistChip(
+                            onClick = {},
+                            label = { Text(item.type.label) }
+                        )
+                        if (item.urgent) {
+                            AssistChip(
+                                onClick = {},
+                                label = { Text(stringResource(R.string.urgent_label)) },
+                                colors = AssistChipDefaults.assistChipColors(
+                                    containerColor = MaterialTheme.colorScheme.errorContainer,
+                                    labelColor = MaterialTheme.colorScheme.onErrorContainer
+                                )
+                            )
+                        }
+                    }
                 }
             }
 
             Text(
-                "创建人：${item.creator}",
+                stringResource(R.string.list_creator_label, item.creator),
                 style = MaterialTheme.typography.bodySmall
             )
             Text(
-                "产线：${item.line} ｜ 设备：${item.equipment} ｜ 工序：${item.process}",
+                stringResource(
+                    R.string.list_scope_label,
+                    item.line,
+                    item.equipment,
+                    item.process
+                ),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                TextButton(onClick = onEdit) { Text("编辑") }
-                TextButton(onClick = onDelete) { Text("删除") }
+                IconButton(onClick = onEdit) {
+                    Icon(
+                        imageVector = Icons.Outlined.Edit,
+                        contentDescription = stringResource(R.string.action_edit)
+                    )
+                }
+                IconButton(onClick = onDelete) {
+                    Icon(
+                        imageVector = Icons.Outlined.Delete,
+                        contentDescription = stringResource(R.string.action_delete)
+                    )
+                }
             }
         }
     }
@@ -171,7 +212,7 @@ private fun EmptyListHint(modifier: Modifier = Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            "暂无变化点记录\n可通过【发起】页面新增，或在【追溯】页面设置筛选后查看列表",
+            stringResource(R.string.list_empty_hint),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

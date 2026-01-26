@@ -1,3 +1,198 @@
 <resources>
     <string name="app_name">MyFirstComposeApp</string>
+    <string name="action_add">新增</string>
+    <string name="action_back">返回</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_clear">清空</string>
+    <string name="action_close">关闭</string>
+    <string name="action_confirm">确认</string>
+    <string name="action_delete">删除</string>
+    <string name="action_edit">编辑</string>
+    <string name="action_exit">退出</string>
+    <string name="action_got_it">知道了</string>
+    <string name="action_login">登录</string>
+    <string name="action_reject">驳回</string>
+    <string name="action_release">放行</string>
+    <string name="action_reopen">重开</string>
+    <string name="action_save">保存</string>
+    <string name="action_submit">提交</string>
+
+    <string name="add_title">新增变化点</string>
+    <string name="add_required_section">必填信息</string>
+    <string name="add_scope_section">范围信息（推荐）</string>
+    <string name="add_hint">提示：此版本以 UI 为主（基础功能）。复杂校验与证据门槛留待下一阶段规划。</string>
+
+    <string name="common_no">否</string>
+    <string name="common_note_title">说明</string>
+    <string name="common_yes">是</string>
+
+    <string name="create_title">发起变化点</string>
+    <string name="create_intro">此页为“发起入口页”（UI-only）。点击按钮进入新增表单。</string>
+    <string name="create_button">新建变化点</string>
+    <string name="create_tips_title">表单提示</string>
+    <string name="create_tip_required">• 必填：创建人、变化点类型、变化点标题、变化内容</string>
+    <string name="create_tip_optional">• 推荐：产线/设备/工序、是否紧急</string>
+
+    <string name="detail_title">变化点详情</string>
+    <string name="detail_actor_label">处理人：%1$s</string>
+    <string name="detail_actor_placeholder">输入处理人</string>
+    <string name="detail_content_title">变化点内容</string>
+    <string name="detail_created_at">创建时间：%1$s</string>
+    <string name="detail_creator_label">创建人：%1$s</string>
+    <string name="detail_id_label">ID：%1$s</string>
+    <string name="detail_log_title">操作记录</string>
+    <string name="detail_log_entry">%1$s  |  %2$s</string>
+    <string name="detail_no_actions">当前无可用动作</string>
+    <string name="detail_not_found">未找到记录</string>
+    <string name="detail_reject_title">驳回原因</string>
+    <string name="detail_reject_placeholder">请输入原因</string>
+    <string name="detail_reopen_title">重开原因</string>
+    <string name="detail_reopen_placeholder">请输入原因（可选）</string>
+    <string name="detail_scope_label">产线：%1$s  设备：%2$s  工序：%3$s</string>
+    <string name="detail_set_actor_title">设置处理人</string>
+    <string name="detail_status_role">当前状态：%1$s  |  角色：%2$s</string>
+    <string name="detail_type_urgent">类型：%1$s   紧急：%2$s</string>
+    <string name="detail_updated_at">更新时间：%1$s</string>
+
+    <string name="edit_title">编辑变化点</string>
+    <string name="edit_hint">说明：保存会更新“更新时间”。流程动作请在列表/详情页执行。</string>
+
+    <string name="evidence_title">证据包</string>
+    <string name="evidence_fab_message">当前版本为 UI 占位，后续支持上传照片、附件等证据</string>
+    <string name="evidence_change_id">关联变化点 ID：%1$s</string>
+    <string name="evidence_list_title">证据清单（占位）</string>
+    <string name="evidence_item_photo">• 现场照片</string>
+    <string name="evidence_item_first_check">• 首件确认记录</string>
+    <string name="evidence_item_confirm">• QA / 工艺确认截图</string>
+    <string name="evidence_item_release">• 放行审批记录</string>
+    <string name="evidence_note">证据包用于支撑变化点的审批与追溯。当前版本仅展示结构与入口，不涉及真实附件存储。</string>
+
+    <string name="error_content_required">请输入变化内容</string>
+    <string name="error_creator_required">请输入创建人</string>
+    <string name="error_title_required">请输入变化点标题</string>
+    <string name="error_title_required_edit">请输入变化点（标题）</string>
+    <string name="error_type_required">请选择变化点类型</string>
+
+    <string name="filter_all_label">全部</string>
+
+    <string name="help_title">帮助说明</string>
+    <string name="help_intro_title">变化点管理是什么？</string>
+    <string name="help_intro_body">变化点管理用于记录、跟踪和审查生产现场在人员、设备、物料、方法、环境等方面的变更，以降低质量和安全风险。</string>
+    <string name="help_current_title">当前版本支持内容</string>
+    <string name="help_current_item_entry">• 变化点登记与编辑</string>
+    <string name="help_current_item_status">• 流程状态查看（草稿 / 已提交 / 已确认等）</string>
+    <string name="help_current_item_log">• 操作记录时间轴</string>
+    <string name="help_current_item_trace">• 列表筛选与追溯查看</string>
+    <string name="help_future_title">后续规划</string>
+    <string name="help_future_item_evidence">• 证据附件上传</string>
+    <string name="help_future_item_report">• 报表导出</string>
+    <string name="help_future_item_offline">• 离线登记与同步</string>
+    <string name="help_future_item_roles">• 多角色权限控制</string>
+
+    <string name="label_content_required">变化内容 *</string>
+    <string name="label_creator">创建人</string>
+    <string name="label_creator_required">创建人 *</string>
+    <string name="label_equipment">设备</string>
+    <string name="label_line">产线</string>
+    <string name="label_process">工序</string>
+    <string name="label_title_required">变化点标题 *</string>
+    <string name="label_title_required_edit">变化点（标题）*</string>
+    <string name="label_type_required">变化点类型 *</string>
+    <string name="label_urgent">是否紧急</string>
+
+    <string name="list_title">变化点列表</string>
+    <string name="list_creator_label">创建人：%1$s</string>
+    <string name="list_delete_title">确认删除</string>
+    <string name="list_delete_message">删除后无法恢复，确定要删除该变化点吗？</string>
+    <string name="list_empty_hint">暂无变化点记录\n可通过【发起】页面新增，或在【追溯】页面设置筛选后查看列表</string>
+    <string name="list_scope_label">产线：%1$s ｜ 设备：%2$s ｜ 工序：%3$s</string>
+
+    <string name="login_title">变化点管理</string>
+    <string name="login_username_placeholder">请输入账号</string>
+    <string name="login_password_placeholder">请输入密码</string>
+    <string name="login_remember_account">记住账号</string>
+    <string name="login_remember_password">记住密码</string>
+    <string name="login_forgot_password">忘记密码？</string>
+
+    <string name="nav_overview">总览</string>
+    <string name="nav_work">待办</string>
+    <string name="nav_create">发起</string>
+    <string name="nav_trace">追溯</string>
+    <string name="nav_user">用户</string>
+
+    <string name="overview_title">总览</string>
+    <string name="overview_total">总数：%1$d</string>
+    <string name="overview_urgent">紧急：%1$d</string>
+    <string name="overview_status_distribution">状态分布</string>
+    <string name="overview_status_item">%1$s：%2$d</string>
+    <string name="overview_hint">提示：此页为 UI-only 展示。后续可接入更完整的统计口径。</string>
+
+    <string name="report_title">报表中心</string>
+    <string name="report_summary_title">变化点统计报表</string>
+    <string name="report_summary_body">此页面用于集中展示变化点相关统计与分析结果。</string>
+    <string name="report_plan_title">可规划报表类型</string>
+    <string name="report_plan_line_equipment">• 按产线 / 设备统计变化点数量</string>
+    <string name="report_plan_type">• 按类型统计分布情况</string>
+    <string name="report_plan_status">• 按状态统计待办与关闭情况</string>
+    <string name="report_plan_trend">• 周 / 月趋势分析</string>
+    <string name="report_note">当前版本仅提供报表入口与结构展示，实际统计与导出功能将在后续版本中实现。</string>
+
+    <string name="role_creator">发起人</string>
+    <string name="role_qa">质量</string>
+    <string name="role_process">工艺</string>
+    <string name="role_manager">主管</string>
+
+    <string name="saved_filters_title">保存的筛选（占位）</string>
+    <string name="saved_filters_card_title">筛选模板</string>
+    <string name="saved_filters_hint">当前版本只提供 UI 占位。后续规划将支持保存/编辑/共享筛选条件。</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_user_title">当前用户</string>
+    <string name="settings_role_demo">角色：示例用户</string>
+    <string name="settings_permission_demo">权限：仅用于演示</string>
+    <string name="settings_app_title">应用设置</string>
+    <string name="settings_notification_placeholder">• 通知设置（占位）</string>
+    <string name="settings_density_placeholder">• 显示密度（占位）</string>
+    <string name="settings_language_placeholder">• 语言设置（占位）</string>
+    <string name="settings_about_title">关于</string>
+    <string name="settings_app_name">变化点管理 App</string>
+    <string name="settings_version">版本：Demo / UI-only</string>
+
+    <string name="snackbar_save_success">保存成功</string>
+    <string name="snackbar_save_error">保存失败，请稍后重试</string>
+    <string name="snackbar_delete_success">删除成功</string>
+    <string name="snackbar_delete_error">删除失败，请稍后重试</string>
+
+    <string name="trace_filters_title">查询条件</string>
+    <string name="trace_saved_filters">保存的筛选</string>
+    <string name="trace_keyword_label">关键字</string>
+    <string name="trace_keyword_placeholder">变化点/内容/创建人/产线/设备/工序</string>
+    <string name="trace_creator_placeholder">例如：张三</string>
+    <string name="trace_urgent_only">仅紧急</string>
+    <string name="trace_type_label">类型：全部</string>
+    <string name="trace_start_date_label">起始日期（更新时间）</string>
+    <string name="trace_end_date_label">结束日期（更新时间）</string>
+    <string name="trace_date_placeholder">yyyy-MM-dd</string>
+    <string name="trace_apply">应用并查看列表</string>
+    <string name="trace_hint">说明：日期范围按“更新时间”过滤（格式 yyyy-MM-dd）。</string>
+
+    <string name="urgent_label">紧急</string>
+
+    <string name="user_info_title">用户信息</string>
+    <string name="user_account_label">账号：%1$s</string>
+    <string name="user_role_label">角色：%1$s</string>
+    <string name="user_actions_title">账号操作</string>
+    <string name="user_change_password">修改密码</string>
+    <string name="user_logout">账号登出</string>
+    <string name="user_note_change_password">• 密码修改与登出为 UI 演示入口。</string>
+    <string name="user_note_real_account">• 若接入真实账号体系，可在此绑定接口。</string>
+    <string name="user_password_changed">密码已更新（演示）</string>
+    <string name="user_old_password">旧密码</string>
+    <string name="user_new_password">新密码</string>
+    <string name="user_confirm_password">确认密码</string>
+    <string name="user_password_mismatch">两次输入的密码不一致</string>
+
+    <string name="work_title">我的待办</string>
+    <string name="work_empty">当前没有待处理的变化点</string>
+    <string name="work_item_meta">%1$s · %2$s</string>
 </resources>

@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.data.repository.ChangeRepository
 import com.example.myfirstcomposeapp.model.*
 import kotlinx.coroutines.flow.*
@@ -11,11 +12,11 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-enum class AppRole(val displayName: String) {
-    CREATOR("发起人"),
-    QA("质量"),
-    PROCESS("工艺"),
-    MANAGER("主管")
+enum class AppRole(val labelRes: Int) {
+    CREATOR(R.string.role_creator),
+    QA(R.string.role_qa),
+    PROCESS(R.string.role_process),
+    MANAGER(R.string.role_manager)
 }
 
 class ChangeViewModel(
