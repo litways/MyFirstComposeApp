@@ -63,7 +63,7 @@ fun HomeScaffold(
                         val recordBackgroundColor = if (selected) {
                             MaterialTheme.colorScheme.primary
                         } else {
-                            MaterialTheme.colorScheme.inversePrimary
+                            MaterialTheme.colorScheme.onPrimary
                         }
                         NavigationBarItem(
                             selected = selected,
@@ -78,8 +78,8 @@ fun HomeScaffold(
                                 NavigationBarItemDefaults.colors(
                                     selectedIconColor = MaterialTheme.colorScheme.onPrimary,
                                     selectedTextColor = MaterialTheme.colorScheme.onPrimary,
-                                    unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                                    unselectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.primary,
+                                    unselectedTextColor = MaterialTheme.colorScheme.primary,
                                     indicatorColor = Color.Transparent
                                 )
                             } else {
@@ -89,7 +89,7 @@ fun HomeScaffold(
                                 if (isRecord) {
                                     Box(
                                         modifier = androidx.compose.ui.Modifier
-                                            .size(40.dp)
+                                            .size(48.dp)
                                             .background(recordBackgroundColor, CircleShape),
                                         contentAlignment = Alignment.Center
                                     ) {
