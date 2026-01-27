@@ -87,175 +87,184 @@ fun LoginScreen(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
-        TextField(
-            value = username,
-            onValueChange = {
-                username = it
-                if (usernameError && it.isNotBlank()) usernameError = false
-            },
-            placeholder = { Text(stringResource(R.string.login_username_placeholder)) },
-            modifier = Modifier.fillMaxWidth(0.9f),
-            isError = usernameError,
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Next
-            ),
-            singleLine = true,
-            shape = RoundedCornerShape(10.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF2F2F2),
-                unfocusedContainerColor = Color(0xFFF2F2F2),
-                disabledContainerColor = Color(0xFFF2F2F2),
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            )
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        TextField(
-            value = password,
-            onValueChange = {
-                password = it
-                if (passwordError && it.isNotBlank()) passwordError = false
-            },
-            placeholder = { Text(stringResource(R.string.login_password_placeholder)) },
-            modifier = Modifier.fillMaxWidth(0.9f),
-            isError = passwordError,
-            visualTransformation = if (showPassword) {
-                VisualTransformation.None
-            } else {
-                PasswordVisualTransformation()
-            },
-            trailingIcon = {
-                IconButton(onClick = { showPassword = !showPassword }) {
-                    Icon(
-                        imageVector = if (showPassword) {
-                            Icons.Filled.VisibilityOff
-                        } else {
-                            Icons.Filled.Visibility
-                        },
-                        contentDescription = null,
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-            },
-            keyboardOptions = KeyboardOptions.Default.copy(
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
-            ),
-            singleLine = true,
-            shape = RoundedCornerShape(10.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFFF2F2F2),
-                unfocusedContainerColor = Color(0xFFF2F2F2),
-                disabledContainerColor = Color(0xFFF2F2F2),
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            )
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(0.9f),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+        androidx.compose.foundation.layout.Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            contentAlignment = Alignment.Center
         ) {
-            Column {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Checkbox(
-                        checked = rememberAccount,
-                        onCheckedChange = { isChecked ->
-                            rememberAccount = isChecked
-                            prefs.edit().putBoolean("remember_account", isChecked).apply()
-                            if (!isChecked) {
+            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                TextField(
+                    value = username,
+                    onValueChange = {
+                        username = it
+                        if (usernameError && it.isNotBlank()) usernameError = false
+                    },
+                    placeholder = { Text(stringResource(R.string.login_username_placeholder)) },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    isError = usernameError,
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Next
+                    ),
+                    singleLine = true,
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFFF2F2F2),
+                        unfocusedContainerColor = Color(0xFFF2F2F2),
+                        disabledContainerColor = Color(0xFFF2F2F2),
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                TextField(
+                    value = password,
+                    onValueChange = {
+                        password = it
+                        if (passwordError && it.isNotBlank()) passwordError = false
+                    },
+                    placeholder = { Text(stringResource(R.string.login_password_placeholder)) },
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    isError = passwordError,
+                    visualTransformation = if (showPassword) {
+                        VisualTransformation.None
+                    } else {
+                        PasswordVisualTransformation()
+                    },
+                    trailingIcon = {
+                        IconButton(onClick = { showPassword = !showPassword }) {
+                            Icon(
+                                imageVector = if (showPassword) {
+                                    Icons.Filled.VisibilityOff
+                                } else {
+                                    Icons.Filled.Visibility
+                                },
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    },
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Password,
+                        imeAction = ImeAction.Done
+                    ),
+                    singleLine = true,
+                    shape = RoundedCornerShape(10.dp),
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color(0xFFF2F2F2),
+                        unfocusedContainerColor = Color(0xFFF2F2F2),
+                        disabledContainerColor = Color(0xFFF2F2F2),
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent,
+                        disabledIndicatorColor = Color.Transparent
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(0.9f),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Column {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(
+                                checked = rememberAccount,
+                                onCheckedChange = { isChecked ->
+                                    rememberAccount = isChecked
+                                    prefs.edit().putBoolean("remember_account", isChecked).apply()
+                                    if (!isChecked) {
+                                        prefs.edit().remove("username").apply()
+                                    }
+                                }
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(text = stringResource(R.string.login_remember_account))
+                        }
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Checkbox(
+                                checked = rememberPassword,
+                                onCheckedChange = { isChecked ->
+                                    rememberPassword = isChecked
+                                    prefs.edit().putBoolean("remember_password", isChecked).apply()
+                                    if (!isChecked) {
+                                        prefs.edit().remove("password").apply()
+                                    }
+                                }
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Text(text = stringResource(R.string.login_remember_password))
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Button(
+                    onClick = {
+                        val isUsernameBlank = username.isBlank()
+                        val isPasswordBlank = password.isBlank()
+
+                        usernameError = isUsernameBlank
+                        passwordError = isPasswordBlank
+
+                        if (!isUsernameBlank && !isPasswordBlank) {
+                            if (rememberAccount) {
+                                prefs.edit().putString("username", username).apply()
+                            } else {
                                 prefs.edit().remove("username").apply()
                             }
-                        }
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = stringResource(R.string.login_remember_account))
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Checkbox(
-                        checked = rememberPassword,
-                        onCheckedChange = { isChecked ->
-                            rememberPassword = isChecked
-                            prefs.edit().putBoolean("remember_password", isChecked).apply()
-                            if (!isChecked) {
+                            if (rememberPassword) {
+                                prefs.edit().putString("password", password).apply()
+                            } else {
                                 prefs.edit().remove("password").apply()
                             }
+                            onLogin()
                         }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .height(48.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF0D6EFD),
+                        contentColor = Color.White
                     )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = stringResource(R.string.login_remember_password))
+                ) {
+                    Text(text = stringResource(R.string.action_login), fontWeight = FontWeight.SemiBold)
                 }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Button(
+                    onClick = { /* TODO */ },
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .height(48.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFE0E0E0),
+                        contentColor = Color.Black
+                    )
+                ) {
+                    Text(text = stringResource(R.string.action_exit), fontWeight = FontWeight.SemiBold)
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = stringResource(R.string.login_forgot_password),
+                    color = Color(0xFF0D6EFD),
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Button(
-            onClick = {
-                val isUsernameBlank = username.isBlank()
-                val isPasswordBlank = password.isBlank()
-
-                usernameError = isUsernameBlank
-                passwordError = isPasswordBlank
-
-                if (!isUsernameBlank && !isPasswordBlank) {
-                    if (rememberAccount) {
-                        prefs.edit().putString("username", username).apply()
-                    } else {
-                        prefs.edit().remove("username").apply()
-                    }
-                    if (rememberPassword) {
-                        prefs.edit().putString("password", password).apply()
-                    } else {
-                        prefs.edit().remove("password").apply()
-                    }
-                    onLogin()
-                }
-            },
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .height(48.dp),
-            shape = RoundedCornerShape(10.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF0D6EFD),
-                contentColor = Color.White
-            )
-        ) {
-            Text(text = stringResource(R.string.action_login), fontWeight = FontWeight.SemiBold)
-        }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Button(
-            onClick = { /* TODO */ },
-            modifier = Modifier
-                .fillMaxWidth(0.9f)
-                .height(48.dp),
-            shape = RoundedCornerShape(10.dp),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFFE0E0E0),
-                contentColor = Color.Black
-            )
-        ) {
-            Text(text = stringResource(R.string.action_exit), fontWeight = FontWeight.SemiBold)
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Text(
-            text = stringResource(R.string.login_forgot_password),
-            color = Color(0xFF0D6EFD),
-            style = MaterialTheme.typography.bodyMedium
-        )
     }
 }
