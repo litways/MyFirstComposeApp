@@ -1,6 +1,8 @@
 package com.example.myfirstcomposeapp.ui.screens.overview
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,25 +36,36 @@ fun OverviewScreen(vm: ChangeViewModel) {
         ChangeStatus.REOPENED
     )
 
-    Card(shape = MaterialTheme.shapes.large) {
-        Column(
-            Modifier.fillMaxWidth().padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primary)
+                .padding(16.dp)
         ) {
-            Text(stringResource(R.string.overview_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
-            Text(stringResource(R.string.overview_total, allCount))
-            Text(stringResource(R.string.overview_urgent, urgentCount))
+            Text(stringResource(R.string.nav_overview), color = MaterialTheme.colorScheme.onPrimary)
+        }
 
-            Text(stringResource(R.string.overview_status_distribution), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
-            statuses.forEach { st ->
-                val c = items.count { it.status == st }
-                if (c > 0) Text(stringResource(R.string.overview_status_item, st.label, c))
+        Card(shape = MaterialTheme.shapes.large) {
+            Column(
+                Modifier.fillMaxWidth().padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Text(stringResource(R.string.overview_title), style = MaterialTheme.typography.titleLarge, fontWeight = FontWeight.SemiBold)
+                Text(stringResource(R.string.overview_total, allCount))
+                Text(stringResource(R.string.overview_urgent, urgentCount))
+
+                Text(stringResource(R.string.overview_status_distribution), style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.SemiBold)
+                statuses.forEach { st ->
+                    val c = items.count { it.status == st }
+                    if (c > 0) Text(stringResource(R.string.overview_status_item, st.label, c))
+                }
+
+                Text(
+                    stringResource(R.string.overview_hint),
+                    style = MaterialTheme.typography.bodySmall
+                )
             }
-
-            Text(
-                stringResource(R.string.overview_hint),
-                style = MaterialTheme.typography.bodySmall
-            )
         }
     }
 }
