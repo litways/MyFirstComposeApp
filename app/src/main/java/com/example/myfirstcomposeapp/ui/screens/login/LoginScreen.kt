@@ -74,7 +74,7 @@ fun LoginScreen(
     var showPassword by remember { mutableStateOf(false) }
 
     val actionFontSize = MaterialTheme.typography.bodyLarge.fontSize * 1.25f
-    val titleTopPadding = 24.dp * 1.25f
+    val titleFontSize = MaterialTheme.typography.headlineLarge.fontSize * 2f
 
     Box(
         modifier = Modifier
@@ -86,17 +86,22 @@ fun LoginScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = stringResource(R.string.login_title),
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.ExtraBold,
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = titleTopPadding),
-                textAlign = TextAlign.Center
-            )
+                    .height(220.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = stringResource(R.string.login_title),
+                    style = MaterialTheme.typography.headlineLarge,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = titleFontSize,
+                    textAlign = TextAlign.Center
+                )
+            }
 
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             TextField(
                 value = username,
@@ -170,10 +175,10 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Row(
+            Column(
                 modifier = Modifier.fillMaxWidth(0.9f),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally)
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalAlignment = Alignment.Start
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
