@@ -74,7 +74,7 @@ fun LoginScreen(
     var showPassword by remember { mutableStateOf(false) }
 
     val actionFontSize = MaterialTheme.typography.bodyLarge.fontSize * 1.25f
-    val titleFontSize = MaterialTheme.typography.headlineLarge.fontSize * 2f
+    val titleFontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f
 
     Box(
         modifier = Modifier
@@ -89,8 +89,9 @@ fun LoginScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(220.dp),
-                contentAlignment = Alignment.Center
+                    .height(200.dp)
+                    .padding(top = 8.dp),
+                contentAlignment = Alignment.TopCenter
             ) {
                 Text(
                     text = stringResource(R.string.login_title),
@@ -175,10 +176,10 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            Column(
+            Row(
                 modifier = Modifier.fillMaxWidth(0.9f),
-                verticalArrangement = Arrangement.spacedBy(8.dp),
-                horizontalAlignment = Alignment.Start
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Checkbox(
