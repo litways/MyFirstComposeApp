@@ -17,7 +17,7 @@
     <string name="action_save">保存</string>
     <string name="action_submit">提交</string>
 
-    <string name="add_title">新增变化点</string>
+    <string name="add_title">记录变更</string>
     <string name="add_required_section">必填信息</string>
     <string name="add_scope_section">范围信息（推荐）</string>
     <string name="add_hint">提示：此版本以 UI 为主（基础功能）。复杂校验与证据门槛留待下一阶段规划。</string>
@@ -104,7 +104,7 @@
     <string name="list_creator_label">创建人：%1$s</string>
     <string name="list_delete_title">确认删除</string>
     <string name="list_delete_message">删除后无法恢复，确定要删除该变化点吗？</string>
-    <string name="list_empty_hint">暂无变化点记录\n可通过【发起】页面新增，或在【追溯】页面设置筛选后查看列表</string>
+    <string name="list_empty_hint">暂无变化点记录\n可通过【记录】页面新增，或在【追溯】页面设置筛选后查看列表</string>
     <string name="list_scope_label">产线：%1$s ｜ 设备：%2$s ｜ 工序：%3$s</string>
 
     <string name="login_title">变化点管理</string>
@@ -116,7 +116,8 @@
 
     <string name="nav_overview">总览</string>
     <string name="nav_work">待办</string>
-    <string name="nav_create">发起</string>
+    <string name="nav_create">记录</string>
+    <string name="action_cancel_record">取消记录</string>
     <string name="nav_trace">追溯</string>
     <string name="nav_user">用户</string>
 

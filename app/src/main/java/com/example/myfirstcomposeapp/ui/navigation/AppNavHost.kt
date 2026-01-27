@@ -15,7 +15,6 @@ import com.example.myfirstcomposeapp.R
 import com.example.myfirstcomposeapp.ui.screens.AddScreen
 import com.example.myfirstcomposeapp.ui.screens.EditScreen
 import com.example.myfirstcomposeapp.ui.screens.ListScreen
-import com.example.myfirstcomposeapp.ui.screens.create.CreateScreen
 import com.example.myfirstcomposeapp.ui.screens.detail.ChangeDetailScreen
 import com.example.myfirstcomposeapp.ui.screens.login.LoginScreen
 import com.example.myfirstcomposeapp.ui.screens.overview.OverviewScreen
@@ -62,8 +61,18 @@ fun AppNavHost(vm: ChangeViewModel) {
             }
 
             composable(Routes.CREATE) {
-                CreateScreen(
-                    onCreate = { navController.navigate(Routes.LEGACY_ADD) }
+                AddScreen(
+                    onSave = { draft ->
+                        runCatching { vm.add(draft) }
+                            .onSuccess {
+                                scope.launch { snackbarHostState.showSnackbar(saveSuccessMessage) }
+                                navController.popBackStack()
+                            }
+                            .onFailure {
+                                scope.launch { snackbarHostState.showSnackbar(saveErrorMessage) }
+                            }
+                    },
+                    onCancel = { navController.popBackStack() }
                 )
             }
 
