@@ -2,6 +2,7 @@ package com.example.myfirstcomposeapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,9 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ElevatedCard
@@ -70,7 +70,6 @@ fun AddScreen(
             title.trim().isNotEmpty() &&
             content.trim().isNotEmpty()
 
-    val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
 
     Scaffold(
@@ -129,184 +128,191 @@ fun AddScreen(
             }
         }
     ) { padding ->
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .verticalScroll(scrollState) // 关键：允许上下滚动
-                .imePadding()                // 关键：键盘弹出时内容不被遮挡
-                .padding(Dimens.spacingLg),
+                .imePadding(),
+            contentPadding = PaddingValues(Dimens.spacingLg),
             verticalArrangement = Arrangement.spacedBy(Dimens.spacingMd)
         ) {
-            ElevatedCard(shape = MaterialTheme.shapes.large) {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(Dimens.spacingLg),
-                    verticalArrangement = Arrangement.spacedBy(Dimens.spacingSm)
-                ) {
-                    Text(
-                        stringResource(R.string.add_required_section),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-
-                    OutlinedTextField(
-                        value = creator,
-                        onValueChange = { creator = it },
-                        label = { Text(stringResource(R.string.label_creator_required)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        isError = attemptedSubmit && creator.isBlank(),
-                        supportingText = {
-                            if (attemptedSubmit && creator.isBlank()) {
-                                Text(stringResource(R.string.error_creator_required))
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                        )
-                    )
-
-                    TypeDropdownField(
-                        selected = type,
-                        onSelect = { type = it },
-                        label = stringResource(R.string.label_type_required),
-                        isError = attemptedSubmit && type == null,
-                        supportingText = if (attemptedSubmit && type == null) {
-                            stringResource(R.string.error_type_required)
-                        } else {
-                            null
-                        }
-                    )
-
-                    OutlinedTextField(
-                        value = title,
-                        onValueChange = { title = it },
-                        label = { Text(stringResource(R.string.label_title_required)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        isError = attemptedSubmit && title.isBlank(),
-                        supportingText = {
-                            if (attemptedSubmit && title.isBlank()) {
-                                Text(stringResource(R.string.error_title_required))
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                        )
-                    )
-
-                    OutlinedTextField(
-                        value = content,
-                        onValueChange = { content = it },
-                        label = { Text(stringResource(R.string.label_content_required)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        minLines = 3,
-                        isError = attemptedSubmit && content.isBlank(),
-                        supportingText = {
-                            if (attemptedSubmit && content.isBlank()) {
-                                Text(stringResource(R.string.error_content_required))
-                            }
-                        },
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
-                        )
-                    )
-
-                    Row(
-                        Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+            item {
+                ElevatedCard(shape = MaterialTheme.shapes.large) {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(Dimens.spacingLg),
+                        verticalArrangement = Arrangement.spacedBy(Dimens.spacingSm)
                     ) {
                         Text(
-                            stringResource(R.string.label_urgent),
-                            style = MaterialTheme.typography.bodyMedium
+                            stringResource(R.string.add_required_section),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
                         )
-                        Switch(checked = urgent, onCheckedChange = { urgent = it })
+
+                        OutlinedTextField(
+                            value = creator,
+                            onValueChange = { creator = it },
+                            label = { Text(stringResource(R.string.label_creator_required)) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            isError = attemptedSubmit && creator.isBlank(),
+                            supportingText = {
+                                if (attemptedSubmit && creator.isBlank()) {
+                                    Text(stringResource(R.string.error_creator_required))
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                            )
+                        )
+
+                        TypeDropdownField(
+                            selected = type,
+                            onSelect = { type = it },
+                            label = stringResource(R.string.label_type_required),
+                            isError = attemptedSubmit && type == null,
+                            supportingText = if (attemptedSubmit && type == null) {
+                                stringResource(R.string.error_type_required)
+                            } else {
+                                null
+                            }
+                        )
+
+                        OutlinedTextField(
+                            value = title,
+                            onValueChange = { title = it },
+                            label = { Text(stringResource(R.string.label_title_required)) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            isError = attemptedSubmit && title.isBlank(),
+                            supportingText = {
+                                if (attemptedSubmit && title.isBlank()) {
+                                    Text(stringResource(R.string.error_title_required))
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                            )
+                        )
+
+                        OutlinedTextField(
+                            value = content,
+                            onValueChange = { content = it },
+                            label = { Text(stringResource(R.string.label_content_required)) },
+                            modifier = Modifier.fillMaxWidth(),
+                            minLines = 3,
+                            isError = attemptedSubmit && content.isBlank(),
+                            supportingText = {
+                                if (attemptedSubmit && content.isBlank()) {
+                                    Text(stringResource(R.string.error_content_required))
+                                }
+                            },
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                            )
+                        )
+
+                        Row(
+                            Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(
+                                stringResource(R.string.label_urgent),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            Switch(checked = urgent, onCheckedChange = { urgent = it })
+                        }
                     }
                 }
             }
 
-            ElevatedCard(shape = MaterialTheme.shapes.large) {
-                Column(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(Dimens.spacingLg),
-                    verticalArrangement = Arrangement.spacedBy(Dimens.spacingSm)
-                ) {
-                    Text(
-                        stringResource(R.string.add_scope_section),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.SemiBold
-                    )
-
-                    OutlinedTextField(
-                        value = line,
-                        onValueChange = { line = it },
-                        label = { Text(stringResource(R.string.label_line)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+            item {
+                ElevatedCard(shape = MaterialTheme.shapes.large) {
+                    Column(
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(Dimens.spacingLg),
+                        verticalArrangement = Arrangement.spacedBy(Dimens.spacingSm)
+                    ) {
+                        Text(
+                            stringResource(R.string.add_scope_section),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
                         )
-                    )
 
-                    OutlinedTextField(
-                        value = equipment,
-                        onValueChange = { equipment = it },
-                        label = { Text(stringResource(R.string.label_equipment)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                        OutlinedTextField(
+                            value = line,
+                            onValueChange = { line = it },
+                            label = { Text(stringResource(R.string.label_line)) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                            )
                         )
-                    )
 
-                    OutlinedTextField(
-                        value = process,
-                        onValueChange = { process = it },
-                        label = { Text(stringResource(R.string.label_process)) },
-                        modifier = Modifier.fillMaxWidth(),
-                        singleLine = true,
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            imeAction = ImeAction.Done
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onDone = { focusManager.clearFocus() }
+                        OutlinedTextField(
+                            value = equipment,
+                            onValueChange = { equipment = it },
+                            label = { Text(stringResource(R.string.label_equipment)) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                            )
                         )
-                    )
+
+                        OutlinedTextField(
+                            value = process,
+                            onValueChange = { process = it },
+                            label = { Text(stringResource(R.string.label_process)) },
+                            modifier = Modifier.fillMaxWidth(),
+                            singleLine = true,
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Done
+                            ),
+                            keyboardActions = KeyboardActions(
+                                onDone = { focusManager.clearFocus() }
+                            )
+                        )
+                    }
                 }
             }
 
-            Text(
-                stringResource(R.string.add_hint),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            item {
+                Text(
+                    stringResource(R.string.add_hint),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
 
-            // 让内容在底部按钮栏上方留出空间，避免最后一个输入框被遮挡
-            Spacer(Modifier.height(Dimens.spacing5xl))
+            item {
+                // 让内容在底部按钮栏上方留出空间，避免最后一个输入框被遮挡
+                Spacer(Modifier.height(Dimens.spacing5xl))
+            }
         }
     }
 }

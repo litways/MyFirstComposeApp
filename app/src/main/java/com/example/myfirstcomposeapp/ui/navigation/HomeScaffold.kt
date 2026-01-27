@@ -6,6 +6,10 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -16,8 +20,11 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.myfirstcomposeapp.R
@@ -53,6 +60,11 @@ fun HomeScaffold(
                     items.forEach { item ->
                         val selected = currentRoute == item.route
                         val isRecord = item.route == Routes.CREATE
+                        val recordBackgroundColor = if (selected) {
+                            MaterialTheme.colorScheme.primary
+                        } else {
+                            MaterialTheme.colorScheme.inversePrimary
+                        }
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
@@ -64,20 +76,34 @@ fun HomeScaffold(
                             },
                             colors = if (isRecord) {
                                 NavigationBarItemDefaults.colors(
-                                    selectedIconColor = MaterialTheme.colorScheme.primary,
-                                    selectedTextColor = MaterialTheme.colorScheme.primary,
-                                    unselectedIconColor = MaterialTheme.colorScheme.primary,
-                                    unselectedTextColor = MaterialTheme.colorScheme.primary,
-                                    indicatorColor = MaterialTheme.colorScheme.primaryContainer
+                                    selectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.onPrimary,
+                                    unselectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                                    indicatorColor = Color.Transparent
                                 )
                             } else {
                                 NavigationBarItemDefaults.colors()
                             },
                             icon = {
-                                Icon(
-                                    item.icon,
-                                    contentDescription = stringResource(item.labelRes)
-                                )
+                                if (isRecord) {
+                                    Box(
+                                        modifier = androidx.compose.ui.Modifier
+                                            .size(40.dp)
+                                            .background(recordBackgroundColor, CircleShape),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            item.icon,
+                                            contentDescription = stringResource(item.labelRes)
+                                        )
+                                    }
+                                } else {
+                                    Icon(
+                                        item.icon,
+                                        contentDescription = stringResource(item.labelRes)
+                                    )
+                                }
                             },
                             label = { androidx.compose.material3.Text(stringResource(item.labelRes)) }
                         )
