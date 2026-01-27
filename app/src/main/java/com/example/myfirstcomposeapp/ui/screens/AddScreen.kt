@@ -15,7 +15,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,6 +26,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -84,28 +84,13 @@ fun AddScreen(
                             contentDescription = stringResource(R.string.action_back)
                         )
                     }
-                }
-            )
-        },
-        bottomBar = {
-            Surface(tonalElevation = 2.dp) {
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .navigationBarsPadding()
-                        .padding(Dimens.spacingMd),
-                    horizontalArrangement = Arrangement.spacedBy(Dimens.spacingMd)
-                ) {
-                    OutlinedButton(
-                        onClick = onCancel,
-                        modifier = Modifier.weight(1f)
-                    ) { Text(stringResource(R.string.action_cancel)) }
-
-                    Button(
+                },
+                actions = {
+                    TextButton(
                         onClick = {
                             attemptedSubmit = true
                             if (!canSave) {
-                                return@Button
+                                return@TextButton
                             }
                             onSave(
                                 ChangeDraft(
@@ -120,9 +105,26 @@ fun AddScreen(
                                 )
                             )
                         },
-                        modifier = Modifier.weight(1f),
                         enabled = canSave
-                    ) { Text(stringResource(R.string.action_save)) }
+                    ) {
+                        Text(stringResource(R.string.action_save))
+                    }
+                }
+            )
+        },
+        bottomBar = {
+            Surface(tonalElevation = 2.dp) {
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .navigationBarsPadding()
+                        .padding(Dimens.spacingMd),
+                    horizontalArrangement = Arrangement.spacedBy(Dimens.spacingMd)
+                ) {
+                    OutlinedButton(
+                        onClick = onCancel,
+                        modifier = Modifier.fillMaxWidth()
+                    ) { Text(stringResource(R.string.action_cancel_record)) }
                 }
             }
         }

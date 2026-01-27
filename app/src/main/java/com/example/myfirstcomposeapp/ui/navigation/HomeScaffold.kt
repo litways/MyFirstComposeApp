@@ -9,11 +9,13 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
@@ -50,6 +52,7 @@ fun HomeScaffold(
                 NavigationBar {
                     items.forEach { item ->
                         val selected = currentRoute == item.route
+                        val isRecord = item.route == Routes.CREATE
                         NavigationBarItem(
                             selected = selected,
                             onClick = {
@@ -58,6 +61,17 @@ fun HomeScaffold(
                                     restoreState = true
                                     popUpTo(Routes.OVERVIEW) { saveState = true }
                                 }
+                            },
+                            colors = if (isRecord) {
+                                NavigationBarItemDefaults.colors(
+                                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                                    unselectedIconColor = MaterialTheme.colorScheme.primary,
+                                    unselectedTextColor = MaterialTheme.colorScheme.primary,
+                                    indicatorColor = MaterialTheme.colorScheme.primaryContainer
+                                )
+                            } else {
+                                NavigationBarItemDefaults.colors()
                             },
                             icon = {
                                 Icon(
