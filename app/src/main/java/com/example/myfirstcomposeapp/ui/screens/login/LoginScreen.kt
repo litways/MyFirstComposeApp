@@ -21,8 +21,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -72,9 +74,35 @@ fun LoginScreen(
     var usernameError by remember { mutableStateOf(false) }
     var passwordError by remember { mutableStateOf(false) }
     var showPassword by remember { mutableStateOf(false) }
+    var showExitDialog by remember { mutableStateOf(false) }
+
+    val onExit = { /* TODO */ }
 
     val actionFontSize = MaterialTheme.typography.bodyLarge.fontSize * 1.25f
     val titleFontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text(text = "提示") },
+            text = { Text(text = "确定要退出应用吗？") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showExitDialog = false
+                        onExit()
+                    }
+                ) {
+                    Text(text = "确认")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text(text = "取消")
+                }
+            }
+        )
+    }
 
     Box(
         modifier = Modifier
@@ -254,7 +282,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             Button(
-                onClick = { /* TODO */ },
+                onClick = { showExitDialog = true },
                 modifier = Modifier
                     .fillMaxWidth(0.9f)
                     .height(48.dp),
