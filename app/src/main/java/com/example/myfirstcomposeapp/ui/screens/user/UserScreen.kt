@@ -34,6 +34,7 @@ fun UserScreen(
     onLogout: () -> Unit
 ) {
     var showPasswordDialog by remember { mutableStateOf(false) }
+    var showLogoutDialog by remember { mutableStateOf(false) }
     var changeResult by remember { mutableStateOf<String?>(null) }
     val passwordChangedText = stringResource(R.string.user_password_changed)
 
@@ -59,7 +60,7 @@ fun UserScreen(
                         Text(stringResource(R.string.user_change_password))
                     }
                     Spacer(Modifier.width(12.dp))
-                    Button(onClick = onLogout) {
+                    Button(onClick = { showLogoutDialog = true }) {
                         Text(stringResource(R.string.user_logout))
                     }
                 }
@@ -84,6 +85,29 @@ fun UserScreen(
             onConfirm = {
                 changeResult = passwordChangedText
                 showPasswordDialog = false
+            }
+        )
+    }
+
+    if (showLogoutDialog) {
+        AlertDialog(
+            onDismissRequest = { showLogoutDialog = false },
+            title = { Text("提示") },
+            text = { Text("确定要退出当前用户登录吗？") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        showLogoutDialog = false
+                        onLogout()
+                    }
+                ) {
+                    Text("确认")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showLogoutDialog = false }) {
+                    Text("取消")
+                }
             }
         )
     }
