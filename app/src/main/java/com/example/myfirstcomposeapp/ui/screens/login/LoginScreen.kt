@@ -1,5 +1,6 @@
 package com.example.myfirstcomposeapp.ui.screens.login
 
+import android.app.Activity
 import android.content.Context
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -76,7 +77,9 @@ fun LoginScreen(
     var showPassword by remember { mutableStateOf(false) }
     var showExitDialog by remember { mutableStateOf(false) }
 
-    val onExit = { /* TODO */ }
+    val onExit = {
+        (context as? Activity)?.finishAffinity()
+    }
 
     val actionFontSize = MaterialTheme.typography.bodyLarge.fontSize * 1.25f
     val titleFontSize = MaterialTheme.typography.headlineLarge.fontSize * 1.5f
