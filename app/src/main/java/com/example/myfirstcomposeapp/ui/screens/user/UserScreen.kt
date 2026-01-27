@@ -1,6 +1,8 @@
 package com.example.myfirstcomposeapp.ui.screens.user
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,43 +40,54 @@ fun UserScreen(
     var changeResult by remember { mutableStateOf<String?>(null) }
     val passwordChangedText = stringResource(R.string.user_password_changed)
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        Card {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.user_info_title), style = MaterialTheme.typography.titleMedium)
-                Text(stringResource(R.string.user_account_label, vm.currentUser))
-                Text(stringResource(R.string.user_role_label, stringResource(vm.currentRole.labelRes)))
-            }
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primary)
+                .padding(16.dp)
+        ) {
+            Text(stringResource(R.string.nav_user), color = MaterialTheme.colorScheme.onPrimary)
         }
 
-        Card {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(stringResource(R.string.user_actions_title), style = MaterialTheme.typography.titleMedium)
-                Row {
-                    Button(onClick = { showPasswordDialog = true }) {
-                        Text(stringResource(R.string.user_change_password))
-                    }
-                    Spacer(Modifier.width(12.dp))
-                    Button(onClick = { showLogoutDialog = true }) {
-                        Text(stringResource(R.string.user_logout))
-                    }
-                }
-                changeResult?.let { result ->
-                    Text(result, style = MaterialTheme.typography.bodySmall)
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Card {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.user_info_title), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.user_account_label, vm.currentUser))
+                    Text(stringResource(R.string.user_role_label, stringResource(vm.currentRole.labelRes)))
                 }
             }
-        }
 
-        Card {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text(stringResource(R.string.common_note_title), style = MaterialTheme.typography.titleMedium)
-                Text(stringResource(R.string.user_note_change_password))
-                Text(stringResource(R.string.user_note_real_account))
+            Card {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                    Text(stringResource(R.string.user_actions_title), style = MaterialTheme.typography.titleMedium)
+                    Row {
+                        Button(onClick = { showPasswordDialog = true }) {
+                            Text(stringResource(R.string.user_change_password))
+                        }
+                        Spacer(Modifier.width(12.dp))
+                        Button(onClick = { showLogoutDialog = true }) {
+                            Text(stringResource(R.string.user_logout))
+                        }
+                    }
+                    changeResult?.let { result ->
+                        Text(result, style = MaterialTheme.typography.bodySmall)
+                    }
+                }
+            }
+
+            Card {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(stringResource(R.string.common_note_title), style = MaterialTheme.typography.titleMedium)
+                    Text(stringResource(R.string.user_note_change_password))
+                    Text(stringResource(R.string.user_note_real_account))
+                }
             }
         }
     }

@@ -1,6 +1,8 @@
 package com.example.myfirstcomposeapp.ui.screens.work
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,26 +27,37 @@ fun WorkScreen(
 ) {
     val items = vm.filteredItems.collectAsState().value
 
-    Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        Text(stringResource(R.string.work_title), style = MaterialTheme.typography.titleLarge)
+    Column(modifier = Modifier.fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colorScheme.primary)
+                .padding(16.dp)
+        ) {
+            Text(stringResource(R.string.nav_work), color = MaterialTheme.colorScheme.onPrimary)
+        }
 
-        if (items.isEmpty()) {
-            Text(
-                stringResource(R.string.work_empty),
-                style = MaterialTheme.typography.bodyMedium
-            )
-        } else {
-            items.forEach { item ->
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { navController.navigate(Routes.detail(item.id)) }
-                ) {
-                    Column(Modifier.padding(12.dp)) {
-                        Text(item.title, style = MaterialTheme.typography.titleMedium)
-                        Text(stringResource(R.string.work_item_meta, item.type.label, item.status.label))
+        Column(
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            Text(stringResource(R.string.work_title), style = MaterialTheme.typography.titleLarge)
+
+            if (items.isEmpty()) {
+                Text(
+                    stringResource(R.string.work_empty),
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                items.forEach { item ->
+                    Card(
+                        modifier = Modifier.fillMaxWidth(),
+                        onClick = { navController.navigate(Routes.detail(item.id)) }
+                    ) {
+                        Column(Modifier.padding(12.dp)) {
+                            Text(item.title, style = MaterialTheme.typography.titleMedium)
+                            Text(stringResource(R.string.work_item_meta, item.type.label, item.status.label))
+                        }
                     }
                 }
             }
