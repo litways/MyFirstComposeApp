@@ -1,5 +1,117 @@
 # Changelog
 
+## [0.4.5] - 2026-02-05 15:37:23
+### 本次 Codex 指令
+```text
+下发Codex任务内容
+
+【本次修改内容】
+
+一、作用模块：
+* 构建系统（AGP / Gradle Wrapper / 版本目录）
+* UI 图标引用（HomeScaffold 底部导航“待办/列表”图标）
+
+二、问题现状说明（2 个 warning）： 1）Build 提示：建议使用更新的 Android Gradle Plugin（AGP）以支持/匹配 compileSdk = 36 2）Compose 图标：Icons.Filled.List 标记为 deprecated（建议使用 AutoMirrored 版本）
+
+三、期望行为： 1）升级到“最小可行”的 AGP 版本，使 compileSdk=36 的建议 warning 消失； 2）将 Icons.Filled.List 替换为 Icons.AutoMirrored.Filled.List，消除 deprecated warning； 3）除必要的版本配置与图标引用外，不得引入任何功能变化； 4）项目可正常编译通过，且不新增任何 warning / error； 5）按规范更新 CHANGELOG.md（仅顶部追加新版本块，不触碰历史记录）。
+
+四、边界与限制： 1）仅允许修改以下文件（禁止修改其他任何文件）：
+* gradle/libs.versions.toml
+* gradle/wrapper/gradle-wrapper.properties
+* app/src/main/java/com/example/myfirstcomposeapp/ui/navigation/HomeScaffold.kt
+* CHANGELOG.md 2）不得调整目录结构、页面结构、导航结构； 3）不得重命名任何已有函数/变量/组件； 4）不得引入新的第三方依赖； 5）不得进行与本任务无关的重构/优化。
+
+五、修改类型：
+* 问题修复（消除 warning）
+
+六、执行前确认（必须先输出）： 在修改代码前，先告诉我： 1）你将修改的文件路径清单（应严格等于上述 4 个文件）； 2）HomeScaffold.kt 中将替换的具体符号与位置：从 Icons.Filled.List 替换为 Icons.AutoMirrored.Filled.List（请给出所在行号/代码片段）； 3）AGP 版本将从当前值升级到哪个版本（目标：最小可行版本），以及是否需要同步调整 Gradle wrapper（若需要请说明原因）。
+
+七、具体实施要求： 1）AGP 升级：
+* 将 AGP 升级到刚好满足/匹配 compileSdk=36 建议的最小稳定版本（优先按你上次建议：AGP 8.6.0）。
+* 如升级 AGP 必须提升 Gradle wrapper，则将 wrapper 升级到最小可兼容版本（仅在必须时才改）。 2）图标替换：
+* 仅替换 Icons.Filled.List → Icons.AutoMirrored.Filled.List，其余图标与 UI 行为保持不变；
+* 若需要新增 import，仅限相关 AutoMirrored import，不得牵连其他代码调整。
+
+八、构建验证：
+* 修改完成后必须执行：./gradlew assembleDebug
+* 仅输出构建命令执行结果摘要（是否成功 + 若失败则给出关键报错），不要口头说“已测试”。
+
+
+
+一、执行与工程约束
+1. 工程边界 (不可突破)
+* 不得调整目录结构、文件路径或命名；
+* 不得修改导航结构或页面结构；
+* 不得重命名已有函数、变量、组件；
+* 不得引入新的第三方依赖；
+* 不得影响未指定模块或既有行为。
+2. 修改范围 (严格收敛)
+* 仅允许修改本次任务明确指定的文件与功能；
+* 未授权文件与模块一律禁止改动；
+* 若新增状态，仅限页面内最小本地状态；
+* 禁止抽取公共组件、重构架构或进行结构性优化。
+3. 输出规范 (强制)
+* 仅输出最终完整代码；
+* 修改文件必须输出完整文件内容；
+* 禁止输出 diff、片段或解释说明。
+4. 构建与质量 (必须满足)
+* 修改后必须可正常编译；
+* 不得新增编译错误或 warning；
+* 必须执行构建验证 (assembleDebug)；
+* 不得进行“已测试”类口头声明；
+* 若无法构建，必须说明原因，但仍需保证语法正确。
+5. 实现原则
+* 优先选择最小改动方案；
+* 不得进行与任务无关的优化或重构；
+* 不得为实现便利破坏既有结构与规范。
+
+二、版本管理规范
+1. CHANGELOG 规则
+* 使用根目录 CHANGELOG.md 作为唯一版本日志；
+* 若不存在必须创建；
+* 仅用于版本记录；
+* 每次更新仅允许在文件顶部追加新版本块；
+* 严禁修改历史内容 (包括空格与换行)。
+2. 更新要求
+* 每次有效修改必须更新 CHANGELOG；
+* 新版本块必须追加在顶部；
+* 禁止删除或重排历史版本。
+3. 版本号规则
+* 格式：0.x.y
+* 功能新增 / 增强：x + 1，y = 0
+* 问题修复 / 小改动：y + 1
+* 版本号必须连续，不得跳号或回退。
+4. 每个版本块必须包含
+* [版本号]
+* 修改日期 (YYYY-MM-DD hh:nn:ss)
+* 本次完整 Codex 指令原文 (不得删减或改写)
+
+三、Material Design 3 UI 实现规范
+1. 总原则
+* 所有 UI 必须基于 Material Design 3；
+* 优先使用官方组件；
+* 保持风格一致、克制、可维护。
+2. 组件约束
+* 不得重复实现已有 Material3 功能；
+* 不得自定义替代官方组件；
+* 不得使用过时组件。
+3. 主题与样式
+* 所有颜色必须来自 MaterialTheme.colorScheme；
+* 禁止写死颜色值；
+* 文本必须使用 MaterialTheme.typography；
+* 禁止自定义 TextStyle 或手动指定字体属性。
+4. 布局规范
+* 保持结构清晰，避免深度嵌套；
+* 间距使用 Modifier.padding；
+* 禁止通过写死尺寸制造视觉间距。
+5. 状态与一致性
+* 使用 Material3 内建交互状态能力；
+* 错误与提示优先使用 Snackbar / Dialog；
+* 同类页面保持实现方式一致；
+* 多种实现方式时选择与现有风格最一致方案。
+
+```
+
 ## [0.4.4] - 2026-02-05 15:13:45
 ### 本次 Codex 指令
 ```text

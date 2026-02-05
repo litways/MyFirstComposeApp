@@ -3,7 +3,7 @@ package com.example.myfirstcomposeapp.ui.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.foundation.background
@@ -43,7 +43,7 @@ fun HomeScaffold(
 ) {
     val items = listOf(
         BottomItem(Routes.OVERVIEW, R.string.nav_overview, Icons.Filled.Home),
-        BottomItem(Routes.WORK, R.string.nav_work, Icons.Filled.List),
+        BottomItem(Routes.WORK, R.string.nav_work, Icons.AutoMirrored.Filled.List),
         BottomItem(Routes.CREATE, R.string.nav_create, Icons.Filled.Add),
         BottomItem(Routes.TRACE, R.string.nav_trace, Icons.Filled.Search),
         BottomItem(Routes.USER, R.string.nav_user, Icons.Filled.Person)
