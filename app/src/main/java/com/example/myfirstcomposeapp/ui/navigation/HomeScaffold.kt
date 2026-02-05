@@ -60,6 +60,11 @@ fun HomeScaffold(
                     items.forEach { item ->
                         val selected = currentRoute == item.route
                         val isRecord = item.route == Routes.CREATE
+                        val labelContent: (@Composable () -> Unit)? = if (isRecord) {
+                            null
+                        } else {
+                            { androidx.compose.material3.Text(stringResource(item.labelRes)) }
+                        }
                         val recordBackgroundColor = if (selected) {
                             MaterialTheme.colorScheme.primary
                         } else {
@@ -105,9 +110,7 @@ fun HomeScaffold(
                                     )
                                 }
                             },
-                            label = if (isRecord) null else {
-                                androidx.compose.material3.Text(stringResource(item.labelRes))
-                            }
+                            label = labelContent
                         )
                     }
                 }
