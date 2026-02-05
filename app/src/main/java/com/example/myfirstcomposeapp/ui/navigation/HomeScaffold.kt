@@ -105,11 +105,7 @@ fun HomeScaffold(
                                     )
                                 }
                             },
-                            label = if (isRecord) {
-                                null
-                            } else {
-                                { androidx.compose.material3.Text(stringResource(item.labelRes)) }
-                            }
+                            label = { androidx.compose.material3.Text(stringResource(item.labelRes)) }
                         )
                     }
                 }
